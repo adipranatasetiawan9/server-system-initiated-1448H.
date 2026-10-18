@@ -1,0 +1,151 @@
+*{margin:0;box-sizing:border-box}
+body{height:100vh;background:#000;display:flex;justify-content:center;align-items:center}
+.kanvas{
+  --a:#3ff0ff;--g:rgba(63,240,255,.45);--bg:rgba(2,12,34,.84);--t:#9fdcea;--r:#ffc94d;
+  --o1:rgba(2,10,30,.8);--o2:rgba(3,25,60,.38);
+  /* Penyetel foto: --fy geser foto naik/turun, --bx dan --by posisi garis bidik */
+  --fy:57%;--bx:29.5%;--by:57%;
+  position:relative;overflow:hidden;container-type:inline-size;
+  height:100vh;aspect-ratio:9/16;max-width:100%;
+  background:radial-gradient(ellipse at 50% 32%,var(--o2),transparent 65%),
+    linear-gradient(to bottom,var(--o1),#020611 70%),#020611;
+  font-family:var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;
+  color:#e8f6ff;
+}
+@keyframes muncul{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Atas: terminal, judul, subjudul */
+.terminal{
+  position:absolute;top:2%;left:5%;
+  font-family:Consolas,"Courier New",monospace;font-size:3.6cqw;font-weight:bold;
+  color:var(--a);text-shadow:0 0 6px var(--g);
+  white-space:nowrap;overflow:hidden;width:33ch;border-right:.12em solid var(--a);
+  animation:ketik 3s steps(33) 1s both,kedip .8s step-end infinite;
+}
+@keyframes ketik{from{width:0}to{width:33ch}}
+@keyframes kedip{50%{border-color:transparent}}
+.judul{
+  position:absolute;top:5.4%;left:0;right:0;padding:0 3%;text-align:center;white-space:nowrap;
+  font-family:var(--fh,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:800;font-size:7.2cqw;line-height:1.12;color:#fff;
+  text-shadow:0 0 8px var(--g),0 0 20px var(--g);
+  animation:muncul 1.4s ease 3.6s both;
+}
+.subjudul{
+  position:absolute;top:15.8%;left:0;right:0;text-align:center;white-space:nowrap;
+  font-size:3cqw;letter-spacing:.07em;color:var(--a);text-shadow:0 0 6px var(--g);
+  animation:muncul 1.4s ease 4s both;
+}
+
+/* Pita foto monumen */
+.foto{
+  position:absolute;left:0;right:0;top:18.5%;height:28%;
+  background:url("latar.jpg") 50% var(--fy)/100% auto no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 90%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 90%,transparent);
+  animation:muncul 1.4s ease 3.4s both;
+}
+.scan{
+  position:absolute;left:0;right:0;height:2px;background:var(--a);
+  box-shadow:0 0 10px var(--a);animation:sapu 4.5s linear 4.5s infinite;opacity:0;
+}
+@keyframes sapu{0%{top:4%;opacity:0}10%{opacity:.55}90%{opacity:.55}100%{top:96%;opacity:0}}
+.bidik{
+  position:absolute;left:var(--bx);top:var(--by);width:21cqw;height:21cqw;
+  transform:translate(-50%,-50%);
+  background:
+    linear-gradient(var(--a),var(--a)) top left/24% 2px no-repeat,
+    linear-gradient(var(--a),var(--a)) top left/2px 24% no-repeat,
+    linear-gradient(var(--a),var(--a)) top right/24% 2px no-repeat,
+    linear-gradient(var(--a),var(--a)) top right/2px 24% no-repeat,
+    linear-gradient(var(--a),var(--a)) bottom left/24% 2px no-repeat,
+    linear-gradient(var(--a),var(--a)) bottom left/2px 24% no-repeat,
+    linear-gradient(var(--a),var(--a)) bottom right/24% 2px no-repeat,
+    linear-gradient(var(--a),var(--a)) bottom right/2px 24% no-repeat;
+  animation:denyut 2.4s ease-in-out infinite;
+}
+.bidik::before,.bidik::after{
+  content:"";position:absolute;left:50%;top:50%;background:var(--a);transform:translate(-50%,-50%);
+}
+.bidik::before{width:22%;height:2px}
+.bidik::after{width:2px;height:22%}
+@keyframes denyut{0%,100%{opacity:.45}50%{opacity:1}}
+.lokasi{
+  position:absolute;top:7%;right:3%;padding:1.2cqw 2cqw;text-align:right;line-height:1.35;
+  background:var(--bg);border:1px solid var(--g);
+  font-family:Consolas,"Courier New",monospace;
+}
+.lokasi b{display:block;font-size:2.3cqw;color:#fff}
+.lokasi span{font-size:1.9cqw;color:var(--a)}
+
+/* Tiga kartu: History, Firewall, Local Data */
+.baris{
+  position:absolute;left:3%;right:3%;top:47.2%;height:11.6%;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;
+}
+.kartu{
+  overflow:hidden;padding:1.6cqw 1.8cqw;background:var(--bg);
+  border:1px solid var(--g);box-shadow:0 0 8px var(--g);animation:muncul 1.2s ease both;
+}
+.kartu:nth-child(1){animation-delay:4.4s}
+.kartu:nth-child(2){animation-delay:4.8s}
+.kartu:nth-child(3){animation-delay:5.2s}
+.kartu .kepala{display:flex;align-items:center;gap:1.2cqw;margin-bottom:.8cqw}
+.kartu svg{
+  width:5.4cqw;height:5.4cqw;flex:none;fill:none;stroke:var(--a);
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 3px var(--g));
+}
+.kartu h3{
+  font-family:Consolas,"Courier New",monospace;font-size:2cqw;line-height:1.15;color:var(--a);
+}
+.kartu p{font-size:2cqw;line-height:1.3;color:#e8f6ff}
+
+/* Kotak ayat dan hadis */
+.kotak{
+  position:absolute;left:3%;right:3%;overflow:hidden;padding:1.6cqw 3cqw;text-align:center;
+  background:var(--bg);border:1px solid var(--g);box-shadow:0 0 10px var(--g);
+  animation:muncul 1.2s ease both;
+}
+.kotak .kepala{
+  display:flex;justify-content:space-between;align-items:baseline;gap:2cqw;margin-bottom:.8cqw;
+  font-family:Consolas,"Courier New",monospace;font-size:2.1cqw;line-height:1.3;
+}
+.kotak .label{color:var(--a);font-weight:700}
+.kotak .ref{color:var(--r);font-weight:700}
+.ayat{top:59.8%;height:20.2%;animation-delay:5.6s}
+.ayat .arab{
+  font-family:"Traditional Arabic","Noto Naskh Arabic","Droid Arabic Naskh",serif;
+  direction:rtl;font-size:4.8cqw;line-height:1.65;color:#fff;text-shadow:0 0 8px var(--g);
+}
+.ayat .arti{margin-top:.8cqw;font-size:2.4cqw;line-height:1.35;font-style:italic;color:var(--t)}
+.hadis{top:80.9%;height:10.4%;animation-delay:6s}
+.hadis .teks{font-size:2.5cqw;line-height:1.35;color:#fff}
+.hadis .derajat{margin-top:.6cqw;font-size:2cqw;color:var(--a)}
+
+/* Footer */
+.footer{
+  position:absolute;left:3%;right:3%;bottom:1%;padding:1.4cqw 3cqw;text-align:center;
+  background:var(--bg);border:1px solid var(--g);box-shadow:0 0 10px var(--g);
+  animation:muncul 1.2s ease 6.4s both;
+}
+.footer .nama{font-size:3.3cqw;font-weight:700;color:#fff}
+.footer .kampus{margin-top:.4cqw;font-size:2.1cqw;letter-spacing:.03em}
+.footer .email{font-size:2.1cqw;color:var(--a)}
+
+/* Perbaikan: tinggi layar HP dan judul dua baris */
+html,body{height:100vh;height:100dvh;overflow:hidden}
+.kanvas{height:100vh;height:100dvh}
+.judul{top:5.4%;font-size:7.8cqw}
+.subjudul{top:16.2%}
+
+/* Judul lebih kecil dan latar jaringan */
+.judul{font-size:6.6cqw}
+.subjudul{top:14.8%}
+.kanvas::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 26px);
+}
+.jaringan{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
