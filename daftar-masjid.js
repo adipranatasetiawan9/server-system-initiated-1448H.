@@ -1,0 +1,1 @@
+window.MASJID=["masjid/m01.png","masjid/m02.png","masjid/m03.png","masjid/m04.png","masjid/m05.png","masjid/m06.png","masjid/m07.png","masjid/m08.png","masjid/m09.jpg","masjid/m10.jpg","masjid/m11.jpg","masjid/m12.jpg","masjid/m13.jpg","masjid/m14.jpg","masjid/m15.jpg","masjid/m16.jpg","masjid/m17.jpg"];
