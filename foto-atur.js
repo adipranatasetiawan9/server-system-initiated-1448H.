@@ -1,0 +1,1 @@
+window.ATUR_FOTO = {};
