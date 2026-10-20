@@ -276,3 +276,10 @@ html,body{height:100vh;height:100dvh;overflow:hidden}
   font:3cqw Consolas,"Courier New",monospace;
 }
 .atur input{width:100%;margin-top:1.5cqw}
+
+/* Haluskan sambungan foto dan perpanjangan bawah */
+.p2-foto .utama{
+  -webkit-mask-image:linear-gradient(to bottom,#000 92%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 92%,transparent 100%);
+}
+.p2-foto .ext-b{filter:blur(14px)}
