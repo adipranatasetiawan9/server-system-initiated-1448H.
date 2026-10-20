@@ -248,3 +248,11 @@ html,body{height:100vh;height:100dvh;overflow:hidden}
   content:"";position:absolute;inset:0;
   background:linear-gradient(to bottom,rgba(0,30,100,.28) 0%,rgba(0,30,100,0) 42%);
 }
+
+/* Naikkan tulisan halaman 2 (ubah 6% dan 8.5% untuk mengatur) */
+.kanvas-2.p2{--na:6%;--nb:8.5%}
+.p2-angka{top:calc(10.3% - var(--na))}
+.p2-hari{top:calc(21.8% - var(--na))}
+.p2-judul{top:calc(29.8% - var(--na))}
+.p2-hadis{top:calc(67.4% - var(--nb))}
+.p2-id{top:calc(80.7% - var(--nb))}
