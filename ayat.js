@@ -1,6 +1,6 @@
 window.KONFIG = {
   zona: "Asia/Jakarta",
-  targetRamadhan: "2027-02-07",
+  targetRamadhan: "2027-02-08",
   kecualikan: ["2:183", "2:184", "2:185", "97:1", "97:2", "97:3"]
 };
 
