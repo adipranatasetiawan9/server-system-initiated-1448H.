@@ -82,12 +82,18 @@ var NAMA_KITAB = {
   function matn(t) {
     t = String(t).replace(/\s+/g, " ").trim();
     var i = t.search(/["\u201C]/);
-    if (i >= 0) { t = t.slice(i); }
-    else {
+    if (i >= 0) {
+      t = t.slice(i);
+    } else if (/^telah (menceritakan|mengabarkan|bercerita|memberitakan)/i.test(t) && t.lastIndexOf("]") >= 0) {
+      // buang rantai perawi: ambil isi setelah nama perawi terakhir
+      t = t.slice(t.lastIndexOf("]") + 1);
+      t = t.replace(/^[\s,;:.]*((ia|dia|beliau)\s+)?(berkata|mengatakan|menceritakan|bercerita)?[\s,;:]*(bahwa\s+)?/i, "");
+    } else {
       var j = t.search(/bersabda\s*:?/i);
       if (j >= 0) t = t.slice(j).replace(/^bersabda\s*:?\s*/i, "");
     }
     t = t.replace(/^["\u201C]\s*/, "").replace(/\s*["\u201D]?\s*$/, "");
+    if (t) t = t.charAt(0).toUpperCase() + t.slice(1);
     if (!/[.!?]$/.test(t)) t += ".";
     return t;
   }
@@ -100,12 +106,12 @@ var NAMA_KITAB = {
   function ringkas(grades) {
     var peta = {}, urut = [];
     grades.forEach(function (g) {
-      var n = String(g.grade || "").trim();
+      var s = String(g.grade || ""), n = /sahih/i.test(s) ? "Sahih" : (/hasan/i.test(s) ? "Hasan" : "");
       if (!n) return;
       if (!peta[n]) { peta[n] = []; urut.push(n); }
-      peta[n].push(g.name);
+      if (peta[n].indexOf(g.name) < 0) peta[n].push(g.name);
     });
-    return urut.slice(0, 3).map(function (n) { return n + " (" + peta[n].join(", ") + ")"; }).join(" \u2022 ");
+    return urut.map(function (n) { return n + " (" + peta[n].slice(0, 3).join(", ") + ")"; }).join(" \u2022 ");
   }
   function ambilHadis(item) {
     var kitabSahih = (item.k === "bukhari" || item.k === "muslim");
@@ -179,7 +185,7 @@ var NAMA_KITAB = {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
       });
 
-    var kH = "hadis:" + k, tH = baca(kH);
+    var kH = "hadis2:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
       .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })

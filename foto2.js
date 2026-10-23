@@ -46,17 +46,24 @@
       var w = 60, h = Math.max(20, Math.round(60 * im.naturalHeight / im.naturalWidth));
       var c = document.createElement("canvas"); c.width = w; c.height = h;
       var x = c.getContext("2d"); x.drawImage(im, 0, 0, w, h);
-      var d = x.getImageData(0, 0, w, h).data, rendah = -1, y, i, p, n;
+      var d = x.getImageData(0, 0, w, h).data, y, i, p, n, r;
+      var minRun = Math.max(3, Math.round(h * 0.08)), run = 0, gap = 0, akhir = -1;
+      // Hanya langit yang tersambung dari atas yang dihitung (laut/kolam biru di bawah diabaikan)
       for (y = 0; y < h; y++) {
         n = 0;
         for (i = 0; i < w; i++) {
           p = (y * w + i) * 4;
           if (d[p + 2] >= 110 && d[p + 2] > d[p] + 18 && d[p + 2] >= d[p + 1] - 5) n++;
         }
-        if (n / w > 0.12) rendah = y;
+        r = n / w;
+        if (r > 0.12) { run++; gap = 0; akhir = y; }
+        else if (run > 0) {
+          gap++;
+          if (gap > 2) { if (run >= minRun) break; run = 0; gap = 0; akhir = -1; }
+        }
       }
-      var b = (rendah + 1) / h + 0.1;
-      return Math.max(0.55, Math.min(0.9, b));
+      if (run < minRun || akhir < 0) return 0.8;
+      return Math.max(0.4, Math.min(0.9, (akhir + 1) / h + 0.14));
     } catch (e) { return 0.8; }
   }
 
