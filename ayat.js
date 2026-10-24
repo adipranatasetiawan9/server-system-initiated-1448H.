@@ -25,6 +25,8 @@ var DAFTAR_HADIS = [
     { k: "ibnmajah", n: 1641 }
 ];
 
+if (window.HADIS_PENDEK && window.HADIS_PENDEK.length) DAFTAR_HADIS = window.HADIS_PENDEK;
+
 var NAMA_KITAB = {
   bukhari: "Bukhari", muslim: "Muslim", abudawud: "Abu Dawud",
   tirmidhi: "At-Tirmidzi", ibnmajah: "Ibnu Majah"
