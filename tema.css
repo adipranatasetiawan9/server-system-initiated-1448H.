@@ -283,3 +283,6 @@ html,body{height:100vh;height:100dvh;overflow:hidden}
   mask-image:linear-gradient(to bottom,#000 92%,transparent 100%);
 }
 .p2-foto .ext-b{filter:blur(14px)}
+
+/* Halaman 1: font judul tebal yang jelas */
+.kanvas .judul{font-synthesis-weight:none}

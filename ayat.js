@@ -201,25 +201,25 @@ var NAMA_KITAB = {
 (function () {
   // [warna utama, warna rujukan HR./QS.]
   var TEMA = [
-    ["#3ff0ff","#ffc94d"],["#ffc94d","#fff1c0"],["#5fd6a0","#ffd37a"],["#6aa8ff","#ffd37a"],["#b58cff","#ffd37a"],
-    ["#ff7ac8","#ffe08a"],["#ff9d4d","#fff0c2"],["#ff7a6b","#ffe3a3"],["#dfe9f5","#ffd37a"],["#4fd1c5","#ffd37a"],
-    ["#b8e05a","#fff0a8"],["#f4b6a0","#fff0d0"],["#9fd8ff","#ffd37a"],["#c9b6ff","#ffe08a"],["#f2e35a","#ffffff"],
-    ["#9bc96b","#ffd37a"],["#ff8f8f","#ffe9a8"],["#4db8ff","#ffd37a"],["#2fc4b2","#ffe08a"],["#ffbe98","#fff1c0"],
-    ["#8d9cff","#ffd37a"],["#e879f9","#ffe08a"],["#ffb703","#fff3c4"],["#8ef0c8","#ffd37a"],["#38a3d1","#ffe08a"],
-    ["#c77dff","#ffe08a"],["#e0a15a","#fff0c8"],["#6fcf97","#ffd37a"],["#ffb3d9","#fff0b8"],["#e8dcc2","#ffd37a"],
-    ["#00e5ff","#ff9ef5"]
+    ["#00e5ff","#ffd166"],["#ffc107","#ffffff"],["#2ee6a6","#ffd166"],["#4da3ff","#ffd166"],["#b388ff","#ffd166"],
+    ["#ff5caa","#ffe08a"],["#ff9f1a","#ffffff"],["#ff6b5e","#ffe08a"],["#7cff6b","#ffd166"],["#26c6da","#ffd166"],
+    ["#c6f135","#ffffff"],["#ff8a65","#ffe08a"],["#40c4ff","#ffd166"],["#e040fb","#ffe08a"],["#ffea00","#ffffff"],
+    ["#69f0ae","#ffd166"],["#ff5252","#ffe08a"],["#18ffff","#ffd166"],["#1de9b6","#ffe08a"],["#ffab40","#ffffff"],
+    ["#7c8cff","#ffd166"],["#ff4081","#ffe08a"],["#ffd740","#ffffff"],["#00e676","#ffe08a"],["#29b6f6","#ffd166"],
+    ["#d65dff","#ffe08a"],["#ff9100","#ffffff"],["#64ffda","#ffd166"],["#ff6ea1","#ffe08a"],["#f4d03f","#ffffff"],
+    ["#ff6f91","#ffd166"]
   ];
 
   // [font judul, font isi]
   var FONT = [
-    ["Orbitron","Rajdhani"],["Cinzel","Lato"],["Audiowide","Exo 2"],["Playfair Display","Open Sans"],
-    ["Russo One","Roboto"],["Abril Fatface","Poppins"],["Bebas Neue","Montserrat"],["Cinzel Decorative","Nunito"],
-    ["Righteous","Quicksand"],["Oswald","Source Sans 3"],["Marcellus","Cormorant Garamond"],["Chakra Petch","Titillium Web"],
-    ["Anton","Work Sans"],["Rubik Mono One","Mulish"],["Staatliches","Barlow"],["Cormorant Garamond","Lora"],
-    ["Oxanium","Rubik"],["Alfa Slab One","Merriweather"],["Michroma","Karla"],["Josefin Sans","Raleway"],
-    ["Bungee","Cabin"],["Philosopher","PT Serif"],["Teko","Kanit"],["Saira Condensed","Noto Sans"],
-    ["Black Ops One","Inter"],["Paytone One","Nunito"],["Permanent Marker","Open Sans"],["Exo 2","Lato"],
-    ["Bangers","Poppins"],["Fredoka","Quicksand"],["Libre Baskerville","EB Garamond"]
+    ["Orbitron","Rubik"],["Cinzel","Lato"],["Chakra Petch","Inter"],["Playfair Display","Open Sans"],
+    ["Poppins","Roboto"],["Montserrat","Noto Sans"],["Sora","IBM Plex Sans"],["Space Grotesk","DM Sans"],
+    ["Exo 2","Fira Sans"],["Oxanium","Public Sans"],["Merriweather","PT Sans"],["Lora","Ubuntu"],
+    ["Kanit","Cabin"],["Outfit","Karla"],["Plus Jakarta Sans","Mulish"],["Lexend","Hind"],
+    ["Rubik","Open Sans"],["Barlow","Roboto"],["Work Sans","Lato"],["Saira","Inter"],
+    ["Titillium Web","DM Sans"],["DM Serif Display","Manrope"],["Abril Fatface","Public Sans"],["Alfa Slab One","Fira Sans"],
+    ["Russo One","Noto Sans"],["Righteous","Hind"],["Audiowide","IBM Plex Sans"],["Bitter","Ubuntu"],
+    ["Libre Baskerville","Karla"],["Manrope","PT Sans"],["Raleway","Lato"]
   ];
 
   var fmt = new Intl.DateTimeFormat("en-CA", {
@@ -293,7 +293,7 @@ var NAMA_KITAB = {
     el.style.setProperty("--a", w[0]);
     el.style.setProperty("--g", rgba(w[0], 0.45));
     el.style.setProperty("--bg", rgba(w[0], 0.82, 0.07));
-    el.style.setProperty("--t", campur(w[0], 0.65));
+    el.style.setProperty("--t", campur(w[0], 0.85));
     el.style.setProperty("--r", w[1]);
     el.style.setProperty("--o1", rgba(w[0], 0.8, 0.05));
     el.style.setProperty("--o2", rgba(w[0], 0.38, 0.14));
@@ -302,8 +302,9 @@ var NAMA_KITAB = {
     if (linkFont) linkFont.parentNode.removeChild(linkFont);
     linkFont = document.createElement("link");
     linkFont.rel = "stylesheet";
-    linkFont.href = "https://fonts.googleapis.com/css2?family=" +
-      f[0].replace(/ /g, "+") + "&family=" + f[1].replace(/ /g, "+") + "&display=swap";
+    var satu = ["DM Serif Display", "Abril Fatface", "Alfa Slab One", "Russo One", "Righteous", "Audiowide"];
+    function bagian(n, b) { return "family=" + n.replace(/ /g, "+") + (satu.indexOf(n) >= 0 ? "" : ":wght@" + b); }
+    linkFont.href = "https://fonts.googleapis.com/css2?" + bagian(f[0], "700") + "&" + bagian(f[1], "400;700") + "&display=swap";
     linkFont.onload = function () { setTimeout(sesuaikan, 200); };
     document.head.appendChild(linkFont);
     el.style.setProperty("--fh", '"' + f[0] + '"');
