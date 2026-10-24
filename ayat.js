@@ -18,9 +18,11 @@ var CADANGAN = {
 
 var DAFTAR_HADIS = [
   { k: "bukhari",  n: 3277 }, { k: "bukhari",  n: 38 },
-  { k: "bukhari",  n: 1901 }, { k: "bukhari",  n: 2014 },
+  { k: "bukhari",  n: 1898 }, { k: "bukhari",  n: 1901 },
+  { k: "bukhari",  n: 2014 }, { k: "muslim",   n: 1781 },
+  { k: "muslim",   n: 2495 }, { k: "muslim",   n: 2496 },
   { k: "abudawud", n: 1381 }, { k: "abudawud", n: 1610 },
-  { k: "tirmidhi", n: 683 },  { k: "ibnmajah", n: 1641 }
+    { k: "ibnmajah", n: 1641 }
 ];
 
 var NAMA_KITAB = {
@@ -83,9 +85,10 @@ var NAMA_KITAB = {
     t = String(t).replace(/\s+/g, " ").trim();
     var i = t.search(/["\u201C]/);
     if (i >= 0) {
-      t = t.slice(i);
+      t = t.slice(i + 1);
+      var k = t.search(/["\u201D]/);
+      if (k >= 0) t = t.slice(0, k);   // berhenti di tanda kutip penutup (buang catatan perawi)
     } else if (/^telah (menceritakan|mengabarkan|bercerita|memberitakan)/i.test(t) && t.lastIndexOf("]") >= 0) {
-      // buang rantai perawi: ambil isi setelah nama perawi terakhir
       t = t.slice(t.lastIndexOf("]") + 1);
       t = t.replace(/^[\s,;:.]*((ia|dia|beliau)\s+)?(berkata|mengatakan|menceritakan|bercerita)?[\s,;:]*(bahwa\s+)?/i, "");
     } else {
@@ -113,6 +116,7 @@ var NAMA_KITAB = {
     });
     return urut.map(function (n) { return n + " (" + peta[n].slice(0, 3).join(", ") + ")"; }).join(" \u2022 ");
   }
+  var MAKS_HURUF = 170;   // hadis lebih panjang dari ini dilewati (tidak terbaca di layar HP)
   function ambilHadis(item) {
     var kitabSahih = (item.k === "bukhari" || item.k === "muslim");
     var pInd = ambilJson("ind-" + item.k, item.n);
@@ -121,20 +125,22 @@ var NAMA_KITAB = {
       var ind = r[0], eng = r[1];
       var grades = eng ? (eng.grades || []) : [];
       if (eng && !lolos(grades)) { var e = new Error("Derajat tidak lolos"); e.tolak = true; throw e; }
+      var teks = matn(ind.text);
+      if (/^telah (menceritakan|mengabarkan|bercerita|memberitakan)/i.test(teks) ||
+          /\[[^\]]+\]/.test(teks) || teks.length > MAKS_HURUF || teks.length < 40) {
+        var e2 = new Error("Hadis tidak cocok ditampilkan"); e2.tolak = true; throw e2;
+      }
       return { k: item.k, n: item.n, perawi: NAMA_KITAB[item.k] || item.k,
-               teks: matn(ind.text),
+               teks: teks,
                derajat: eng ? ringkas(grades) : "Shahih (termuat dalam kitab Shahih)" };
     });
   }
   function pilihHadis(k) {
     var mulai = nomorHari(k) % DAFTAR_HADIS.length, i = 0;
     function coba() {
-      if (i >= DAFTAR_HADIS.length) return Promise.reject(new Error("Tidak ada yang lolos"));
+      if (i >= DAFTAR_HADIS.length) return Promise.reject(new Error("Tidak ada hadis yang lolos"));
       var item = DAFTAR_HADIS[(mulai + i) % DAFTAR_HADIS.length];
-      return ambilHadis(item).catch(function (e) {
-        if (e.tolak) { i++; return coba(); }
-        throw e;
-      });
+      return ambilHadis(item).catch(function () { i++; return coba(); });
     }
     return coba();
   }
@@ -185,7 +191,7 @@ var NAMA_KITAB = {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
       });
 
-    var kH = "hadis2:" + k, tH = baca(kH);
+    var kH = "hadis3:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
       .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })

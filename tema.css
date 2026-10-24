@@ -286,3 +286,19 @@ html,body{height:100vh;height:100dvh;overflow:hidden}
 
 /* Halaman 1: font judul tebal yang jelas */
 .kanvas .judul{font-synthesis-weight:none}
+
+/* Perbaikan halaman 2: foto lebih terlihat, tulisan lebih terbaca */
+.p2-angka{color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.5)}
+.p2-hari{
+  color:#ffe28a;-webkit-text-stroke:0;
+  text-shadow:0 2px 3px rgba(40,25,0,.9),0 0 18px rgba(0,0,0,.6);
+}
+.p2-judul{
+  color:#f6c453;-webkit-text-stroke:.3cqw #3b2600;paint-order:stroke fill;
+  text-shadow:0 3px 14px rgba(0,0,0,.65);
+}
+.p2-foto::after{
+  background:linear-gradient(to bottom,rgba(2,14,44,.6) 0%,rgba(2,14,44,.3) 26%,rgba(2,14,44,0) 44%);
+}
+.p2-hadis{top:68%;height:15.4%;font-size:3.5cqw;line-height:1.25}
+.p2-id{top:84.2%;height:10.8%}
