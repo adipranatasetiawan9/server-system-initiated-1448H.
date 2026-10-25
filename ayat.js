@@ -27,9 +27,24 @@ var DAFTAR_HADIS = [
 
 if (window.HADIS_PENDEK && window.HADIS_PENDEK.length) DAFTAR_HADIS = window.HADIS_PENDEK;
 
+var NAMA_SURAH = [null,
+  "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus",
+  "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha",
+  "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Asy-Syu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum",
+  "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Yasin", "As-Saffat", "Sad", "Az-Zumar", "Gafir",
+  "Fussilat", "Asy-Syura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jasiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf",
+  "Az-Zariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadalah", "Al-Hasyr", "Al-Mumtahanah",
+  "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Tagabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij",
+  "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddassir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa",
+  "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Insyiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Gasyiyah", "Al-Fajr", "Al-Balad",
+  "Asy-Syams", "Al-Lail", "Ad-Duha", "Al-Insyirah", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat",
+  "Al-Qari'ah", "At-Takasur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraisy", "Al-Ma'un", "Al-Kausar", "Al-Kafirun", "An-Nasr",
+  "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+];
+
 var NAMA_KITAB = {
   bukhari: "Bukhari", muslim: "Muslim", abudawud: "Abu Dawud",
-  tirmidhi: "At-Tirmidzi", ibnmajah: "Ibnu Majah"
+  tirmidhi: "At-Tirmidzi", ibnmajah: "Ibnu Majah", nasai: "An-Nasa'i"
 };
 
 (function () {
@@ -111,12 +126,20 @@ var NAMA_KITAB = {
   function ringkas(grades) {
     var peta = {}, urut = [];
     grades.forEach(function (g) {
-      var s = String(g.grade || ""), n = /sahih/i.test(s) ? "Sahih" : (/hasan/i.test(s) ? "Hasan" : "");
+      var s = String(g.grade || ""), n = /sahih/i.test(s) ? "Shahih" : (/hasan/i.test(s) ? "Hasan" : "");
       if (!n) return;
       if (!peta[n]) { peta[n] = []; urut.push(n); }
       if (peta[n].indexOf(g.name) < 0) peta[n].push(g.name);
     });
     return urut.map(function (n) { return n + " (" + peta[n].slice(0, 3).join(", ") + ")"; }).join(" \u2022 ");
+  }
+  // Perbaiki ejaan lama dari terjemahan sumber (Ramadlan -> Ramadhan, dst.)
+  function bakuin(t) {
+    return String(t)
+      .replace(/Ramadl/g, "Ramadh").replace(/ramadl/g, "ramadh")
+      .replace(/radliallahu/gi, "radhiyallahu")
+      .replace(/shallAllahu/g, "shallallahu")
+      .replace(/\s+([,.;:!?])/g, "$1");
   }
   var MAKS_HURUF = 200;   // hadis lebih panjang dari ini dilewati (tidak terbaca di layar HP)
   function ambilHadis(item) {
@@ -127,7 +150,7 @@ var NAMA_KITAB = {
       var ind = r[0], eng = r[1];
       var grades = eng ? (eng.grades || []) : [];
       if (eng && !lolos(grades)) { var e = new Error("Derajat tidak lolos"); e.tolak = true; throw e; }
-      var teks = matn(ind.text);
+      var teks = bakuin(matn(ind.text));
       if (/^telah (menceritakan|mengabarkan|bercerita|memberitakan)/i.test(teks) ||
           /\[[^\]]+\]/.test(teks) || teks.length > MAKS_HURUF || teks.length < 40) {
         var e2 = new Error("Hadis tidak cocok ditampilkan"); e2.tolak = true; throw e2;
@@ -166,7 +189,7 @@ var NAMA_KITAB = {
   }
   function tampilAyat(d, label) {
     $("label").textContent = label;
-    $("ref").textContent = "QS. " + d.surah + " \u2022 " + d.ref + " \u2022 Juz " + d.juz;
+    $("ref").textContent = "QS. " + (NAMA_SURAH[parseInt(d.ref, 10)] || d.surah) + " \u2022 " + d.ref + " \u2022 Juz " + d.juz;
     $("arab").textContent = d.arab;
     $("arti").textContent = "\u201C" + rapikan(d.arti) + "\u201D";
     window.fitAyat2();
@@ -193,7 +216,7 @@ var NAMA_KITAB = {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
       });
 
-    var kH = "hadis3:" + k, tH = baca(kH);
+    var kH = "hadis4:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
       .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })
