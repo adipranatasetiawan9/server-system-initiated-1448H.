@@ -137,8 +137,12 @@ var NAMA_KITAB = {
   function bakuin(t) {
     return String(t)
       .replace(/Ramadl/g, "Ramadh").replace(/ramadl/g, "ramadh")
-      .replace(/radliallahu/gi, "radhiyallahu")
+      .replace(/Radliallahu/g, "Radhiyallahu").replace(/radliallahu/g, "radhiyallahu")
       .replace(/shallAllahu/g, "shallallahu")
+      .replace(/Ridla/g, "Ridha").replace(/ridla/g, "ridha")
+      .replace(/Fardlu/g, "Fardhu").replace(/fardlu/g, "fardhu")
+      .replace(/Adlha/g, "Adha").replace(/adlha/g, "adha")
+      .replace(/[Ss]y(a|e)i?tan/g, function (m) { return m.charAt(0) === "S" ? "Setan" : "setan"; })
       .replace(/\s+([,.;:!?])/g, "$1");
   }
   var MAKS_HURUF = 200;   // hadis lebih panjang dari ini dilewati (tidak terbaca di layar HP)
@@ -216,7 +220,7 @@ var NAMA_KITAB = {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
       });
 
-    var kH = "hadis4:" + k, tH = baca(kH);
+    var kH = "hadis5:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
       .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })
