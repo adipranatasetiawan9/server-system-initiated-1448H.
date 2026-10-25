@@ -118,7 +118,7 @@ var NAMA_KITAB = {
     });
     return urut.map(function (n) { return n + " (" + peta[n].slice(0, 3).join(", ") + ")"; }).join(" \u2022 ");
   }
-  var MAKS_HURUF = 170;   // hadis lebih panjang dari ini dilewati (tidak terbaca di layar HP)
+  var MAKS_HURUF = 200;   // hadis lebih panjang dari ini dilewati (tidak terbaca di layar HP)
   function ambilHadis(item) {
     var kitabSahih = (item.k === "bukhari" || item.k === "muslim");
     var pInd = ambilJson("ind-" + item.k, item.n);
