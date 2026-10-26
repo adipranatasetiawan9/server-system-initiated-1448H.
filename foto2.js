@@ -6,7 +6,10 @@
   var LEWATI = ["m11.jpg"];
   var ATUR = window.ATUR_FOTO || {};   // {"m05.png": 0.78}  (diisi dari foto-atur.js)
 
-  var daftar = window.MASJID.filter(function (f) {
+  // Foto baru ditampilkan dulu; foto lama (yang sudah dipakai di postingan) paling akhir
+  var lama = Math.max(0, parseInt(window.MASJID_LAMA, 10) || 0);
+  var urutan = window.MASJID.slice(lama).concat(window.MASJID.slice(0, lama));
+  var daftar = urutan.filter(function (f) {
     return !LEWATI.some(function (x) { return f.indexOf(x) !== -1; });
   });
   if (!daftar.length) return;
@@ -25,7 +28,9 @@
   function pilih() {
     var q = param("masjid");
     if (q >= 1 && q <= window.MASJID.length) return window.MASJID[q - 1];   // uji: ?masjid=5
-    return daftar[nomor(fmt.format(new Date())) % daftar.length];
+    var mulai = window.FOTO_MULAI ? nomor(window.FOTO_MULAI) : 0;
+    var sel = nomor(fmt.format(new Date())) - mulai;
+    return daftar[((sel % daftar.length) + daftar.length) % daftar.length];
   }
 
   var cat = h2.querySelector(".p2-catatan");
