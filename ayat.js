@@ -136,7 +136,7 @@ var NAMA_KITAB = {
   // Perbaiki ejaan lama dari terjemahan sumber (Ramadlan -> Ramadhan, dst.)
   function bakuin(t) {
     return String(t)
-      .replace(/Ramadl/g, "Ramadh").replace(/ramadl/g, "ramadh")
+      .replace(/(R|r)amad[lh]*a[nh]\b/g, function (m, c) { return c + "amadhan"; })
       .replace(/Radliallahu/g, "Radhiyallahu").replace(/radliallahu/g, "radhiyallahu")
       .replace(/shallAllahu/g, "shallallahu")
       .replace(/Ridla/g, "Ridha").replace(/ridla/g, "ridha")
@@ -220,7 +220,7 @@ var NAMA_KITAB = {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
       });
 
-    var kH = "hadis5:" + k, tH = baca(kH);
+    var kH = "hadis6:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
       .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })
