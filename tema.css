@@ -399,3 +399,136 @@ body.offline .kartu svg{opacity:.45}
 .boot-isi-bar{height:100%;width:0;background:#3ff0ff;box-shadow:0 0 10px #3ff0ff;transition:width .4s}
 .boot-info{display:flex;justify-content:space-between;font-size:13px;color:#8fb4c8}
 .boot-lewati{text-align:center;font-size:12px;color:#5c7a8c}
+
+/* ===== Gaya poster: cyan + emas ===== */
+.judul .j1{color:#fff;text-shadow:0 0 8px var(--a),0 0 22px var(--g)}
+.judul .j2{color:#ffc94d;text-shadow:0 0 8px rgba(255,201,77,.75),0 0 24px rgba(255,160,30,.5)}
+
+/* bingkai layar seperti ponsel masa depan */
+.kanvas::after{
+  content:"";position:absolute;inset:.8cqw;z-index:6;pointer-events:none;
+  border:1px solid var(--g);box-shadow:inset 0 0 14px var(--g);
+  background:
+    linear-gradient(#ffc94d,#ffc94d) top left/6cqw 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top left/2px 6cqw no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top right/6cqw 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top right/2px 6cqw no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom left/6cqw 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom left/2px 6cqw no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom right/6cqw 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom right/2px 6cqw no-repeat;
+}
+
+.appbar::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.8cqw;height:1px;
+  background:linear-gradient(90deg,transparent,var(--a),#ffc94d,var(--a),transparent);
+}
+.app-kiri{color:#ffc94d;text-shadow:0 0 8px rgba(255,201,77,.6)}
+.jam{padding:.6cqw 2cqw;border:1px solid rgba(255,201,77,.55);border-radius:5cqw;color:#ffe9a8}
+
+.kotak,.footer{
+  background:
+    linear-gradient(#ffc94d,#ffc94d) top left/14px 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top left/2px 14px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top right/14px 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) top right/2px 14px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom left/14px 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom left/2px 14px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom right/14px 2px no-repeat,
+    linear-gradient(#ffc94d,#ffc94d) bottom right/2px 14px no-repeat,
+    var(--bg);
+  box-shadow:inset 0 0 0 3px rgba(2,8,22,.85),inset 0 0 0 4px rgba(255,201,77,.55),0 0 12px var(--g);
+}
+.footer .nama{color:#ffd166;text-shadow:0 0 8px rgba(255,201,77,.45)}
+
+/* bulan sabit emas di langit foto */
+.bulan{
+  position:absolute;left:39.5%;top:11%;width:8cqw;height:8cqw;z-index:2;
+  filter:drop-shadow(0 0 5px #ffc94d) drop-shadow(0 0 14px rgba(255,201,77,.6));
+  animation:denyutBulan 4s ease-in-out infinite;
+}
+@keyframes denyutBulan{0%,100%{opacity:.8}50%{opacity:1}}
+
+/* kartu keempat: SMART SYSTEM (hitung mundur nyata ke pergantian konten 00.00 WIB) */
+.ai{
+  position:absolute;left:3%;right:3%;bottom:9%;z-index:3;
+  display:flex;align-items:center;gap:2.4cqw;padding:1.2cqw 2.4cqw;
+  background:rgba(2,10,28,.62);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  border:1px solid var(--g);
+  box-shadow:inset 0 0 0 2px rgba(2,8,22,.8),inset 0 0 0 3px rgba(255,201,77,.55),0 0 10px var(--g);
+}
+.ik-ai{flex:none;width:8cqw;height:8cqw;fill:none;stroke:var(--a);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:cahaya 2.6s ease-in-out infinite}
+.ik-ai .nod{fill:#ffc94d;stroke:none;transform-box:fill-box;transform-origin:center;animation:pikir 1.6s ease-in-out infinite}
+.ik-ai .n2{animation-delay:.4s}
+.ik-ai .n3{animation-delay:.8s}
+.ik-ai .n4{animation-delay:1.2s}
+@keyframes pikir{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.5)}}
+.ai-teks{flex:1;min-width:0;display:flex;flex-direction:column;font-family:Consolas,"Courier New",monospace}
+.ai-teks b{font-size:2.5cqw;color:var(--a);letter-spacing:.05em}
+.ai-teks span{font-size:2cqw;color:#e8f6ff;line-height:1.25}
+.ai-waktu{flex:none;display:flex;flex-direction:column;align-items:flex-end;font-family:Consolas,"Courier New",monospace}
+.ai-waktu small{font-size:1.7cqw;color:#9fdcea;letter-spacing:.08em}
+.ai-waktu i{font-style:normal;font-size:4cqw;font-weight:700;color:#ffc94d;text-shadow:0 0 8px rgba(255,201,77,.6)}
+body.offline .ai svg,body.offline .ai svg *{animation-play-state:paused}
+body.offline .ai svg{opacity:.45}
+@media (prefers-reduced-motion:reduce){.ai svg,.ai svg *{animation:none!important}}
+
+/* tab bawah bergaya poster */
+.titik{
+  background:rgba(2,8,22,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-top:2px solid;border-image:linear-gradient(90deg,var(--a),#ffc94d,var(--a)) 1;
+}
+.titik button{position:relative}
+.titik button.on{color:#ffc94d}
+.titik button.on svg{filter:drop-shadow(0 0 5px #ffc94d)}
+.titik button.on::before{content:"";position:absolute;top:-2px;left:22%;right:22%;height:2px;background:#ffc94d;box-shadow:0 0 8px #ffc94d}
+
+/* layar pembuka: jendela pop-up bergaya poster */
+#boot{overflow:auto;padding:16px 0}
+#boot::before{content:"";position:fixed;inset:-20px;background:url("latar.jpg") center/cover;filter:blur(14px) brightness(.42)}
+.boot-bungkus{position:relative;z-index:1;width:min(92vw,470px);margin:auto;display:flex;flex-direction:column;align-items:center}
+.boot-bulan{width:84px;height:84px;margin-bottom:-12px;position:relative;z-index:2;filter:drop-shadow(0 0 8px #ffc94d) drop-shadow(0 0 22px rgba(255,201,77,.6));animation:denyutBulan 4s ease-in-out infinite}
+.boot-isi{
+  position:relative;width:100%;box-sizing:border-box;padding:28px 16px 16px;border-radius:12px;
+  display:flex;flex-direction:column;gap:11px;
+  background:rgba(3,12,30,.64);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  border:2px solid rgba(63,240,255,.8);
+  box-shadow:inset 0 0 0 4px rgba(2,8,22,.8),inset 0 0 0 5px rgba(255,201,77,.75),0 0 28px rgba(63,240,255,.4);
+}
+.boot-status{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;
+  padding:6px 16px;border:2px solid #39ff88;border-radius:8px;background:rgba(2,28,16,.94);
+  color:#39ff88;font:700 12px Consolas,"Courier New",monospace;letter-spacing:.08em;white-space:nowrap;
+}
+.boot-status.off{border-color:#ff5252;color:#ff8a8a;background:rgba(40,6,6,.94)}
+.boot-status svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.boot-judul{display:flex;flex-direction:column;align-items:center;margin-top:6px;text-align:center;font:italic 800 30px/1.05 "Segoe UI",Roboto,Arial,sans-serif}
+.boot-judul .b1{color:#fff;text-shadow:0 0 10px rgba(63,240,255,.8)}
+.boot-judul .b2{color:#ffc94d;text-shadow:0 0 12px rgba(255,201,77,.7)}
+.boot-sub{text-align:center;font:500 12.5px Inter,Arial,sans-serif;color:#d9f6ff}
+.boot-daftar{display:flex;flex-direction:column;gap:7px;padding:10px;border:1px solid rgba(63,240,255,.6);border-radius:8px;background:rgba(2,10,28,.55)}
+.br{display:flex;align-items:center;gap:9px}
+.br-ikon{flex:none;width:22px;height:22px;color:#3ff0ff}
+.br-ikon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.br-nama{flex:1;min-width:0;font:500 12.5px Consolas,"Courier New",monospace;color:#eaf6ff;white-space:nowrap}
+.br-lencana{flex:none;min-width:92px;text-align:center;padding:3px 8px;border:2px solid;border-radius:8px;font:700 11.5px Consolas,"Courier New",monospace;white-space:nowrap}
+.br-lencana.tunggu{color:#8fb4c8;border-color:#40586a}
+.br-lencana.ok{color:#39ff88;border-color:#39ff88;background:rgba(2,40,20,.7)}
+.br-lencana.tanda{color:#ffc94d;border-color:#ffc94d;background:rgba(40,28,2,.7)}
+.br-lencana.gagal{color:#ff8a8a;border-color:#ff5252;background:rgba(40,6,6,.7)}
+.br-lencana.info{color:#7de9ff;border-color:#3ff0ff;background:rgba(2,26,40,.7)}
+.boot-progres{display:flex;justify-content:space-between;align-items:flex-end}
+.boot-p-kiri{font:600 13px Consolas,"Courier New",monospace;color:#d9f6ff}
+.boot-persen{font:italic 800 32px/1 "Segoe UI",Arial,sans-serif;color:#ffc94d;text-shadow:0 0 12px rgba(255,201,77,.7)}
+.boot-bar{height:16px;border:2px solid #3ff0ff;border-radius:10px;overflow:hidden;background:rgba(2,10,28,.7);box-shadow:0 0 12px rgba(63,240,255,.4)}
+.boot-isi-bar{height:100%;width:0;background:repeating-linear-gradient(135deg,#3ff0ff 0 10px,#8ff6ff 10px 20px);background-size:28px 28px;transition:width .4s;animation:gerakBar 1s linear infinite;box-shadow:none}
+@keyframes gerakBar{from{background-position:0 0}to{background-position:28px 0}}
+.boot-tombol{
+  align-self:center;display:flex;align-items:center;gap:10px;padding:9px 26px;cursor:pointer;
+  font:italic 800 16px "Segoe UI",Arial,sans-serif;color:#fff;background:rgba(3,22,50,.92);
+  border:2px solid #3ff0ff;border-radius:12px;box-shadow:0 0 14px rgba(63,240,255,.55);
+}
+.boot-tombol svg{width:24px;height:24px;fill:none;stroke:#3ff0ff;stroke-width:2.2;stroke-linecap:round}
+.boot-tombol.off{border-color:#ff5252;box-shadow:0 0 14px rgba(255,82,82,.5)}
+.boot-tombol.off svg{stroke:#ff6b6b}
+@media (prefers-reduced-motion:reduce){.boot-isi-bar,.boot-bulan{animation:none}}
