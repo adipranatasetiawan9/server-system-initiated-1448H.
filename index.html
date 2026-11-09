@@ -6,7 +6,7 @@
 <title>How Ramadan Changed the World!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Allura&family=League+Spartan:wght@700&family=Inter:wght@700&display=swap">
-<link rel="stylesheet" href="tema.css?v=3">
+<link rel="stylesheet" href="tema.css?v=10">
 </head>
 <body>
   <div class="pager" id="pager">
@@ -15,7 +15,16 @@
     <section class="halaman" id="h1">
       <div class="kanvas">
         <canvas class="jaringan" id="jaringan"></canvas>
-        <div class="terminal">&gt; SYSTEM INITIATED: RAMADAN 1448H</div>
+        <div class="appbar">
+      <div class="app-kiri">
+        <svg class="app-logo" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-app"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="currentColor" mask="url(#bulan-app)"/></svg>
+        <b>RAMADHAN 1448H</b>
+      </div>
+      <div class="app-kanan">
+        <span class="live" id="live"><i class="live-titik"></i><b id="live-teks">MEMERIKSA</b></span>
+        <span class="jam" id="jam">--.--.--</span>
+      </div>
+    </div>
         <h1 class="judul">HOW RAMADAN<br>CHANGED THE WORLD!</h1>
         <p class="subjudul">History • Virtues &amp; Madura Traditions</p>
 
@@ -31,21 +40,21 @@
         <div class="baris">
           <div class="kartu">
             <div class="kepala">
-              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19"/><ellipse cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14h32M8 34h32"/></svg>
+              <svg viewBox="0 0 48 48" class="ik-hist"><circle cx="24" cy="24" r="19"/><ellipse class="mer m1" cx="24" cy="24" rx="8" ry="19"/><ellipse class="mer m2" cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14h32M8 34h32"/></svg>
               <h3>HISTORY</h3>
             </div>
             <p>The month that rewired global history and connected billions of souls.</p>
           </div>
           <div class="kartu">
             <div class="kepala">
-              <svg viewBox="0 0 48 48"><path d="M24 4L40 10V23C40 33 33 40 24 44C15 40 8 33 8 23V10Z"/><path d="M17 24l5 5 9-10"/></svg>
+              <svg viewBox="0 0 48 48" class="ik-fw"><circle class="aura" cx="24" cy="24" r="21"/><path d="M24 4L40 10V23C40 33 33 40 24 44C15 40 8 33 8 23V10Z"/><rect class="gembok" x="18" y="22" width="12" height="9" rx="2"/><path class="gembok" d="M20.5 22v-3a3.5 3.5 0 0 1 7 0v3"/><circle class="atk" cx="6" cy="8" r="1.8" style="--sx:-9px;--sy:-7px"/><circle class="atk" cx="43" cy="12" r="1.8" style="--sx:9px;--sy:-8px;animation-delay:.9s"/><circle class="atk" cx="4" cy="30" r="1.8" style="--sx:-9px;--sy:4px;animation-delay:1.7s"/></svg>
               <h3>FIREWALL: ACTIVE</h3>
             </div>
             <p>Demons quarantined. Gates of hell locked. Ultimate spiritual protection.</p>
           </div>
           <div class="kartu">
             <div class="kepala">
-              <svg viewBox="0 0 48 48"><path d="M24 44C24 44 10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle cx="24" cy="19" r="5"/></svg>
+              <svg viewBox="0 0 48 48" class="ik-loc"><circle class="radar r1" cx="24" cy="19" r="5"/><circle class="radar r2" cx="24" cy="19" r="5"/><path d="M24 44C24 44 10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle cx="24" cy="19" r="5"/></svg>
               <h3>LOCAL DATA</h3>
             </div>
             <p>From local traditions to global connections. Are you ready for the upgrade?</p>
@@ -88,8 +97,9 @@
   <button class="petunjuk" id="petunjuk" type="button">geser ›</button>
   <div class="titik"><button type="button" class="on" aria-label="Halaman 1"></button><button type="button" aria-label="Halaman 2"></button></div>
 
+  <script src="boot.js?v=1"></script>
   <script src="hadis-pendek.js?v=1792900439695"></script>
-  <script src="ayat.js?v=9"></script>
+  <script src="ayat.js?v=10"></script>
   <script src="daftar-masjid.js"></script>
   <script src="halaman2.js"></script>
   <script src="foto-atur.js"></script>

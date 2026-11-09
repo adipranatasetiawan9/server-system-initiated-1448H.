@@ -215,17 +215,19 @@ var NAMA_KITAB = {
     var ref = pilihRef(k), kA = "ayat:" + ref, tA = baca(kA);
     if (tA) tampilAyat(tA, "[ AYAT HARI INI ]");
     ambilAyat(ref)
-      .then(function (d) { simpan(kA, d); if (kunciTampil === k) tampilAyat(d, "[ AYAT HARI INI ]"); })
+      .then(function (d) { simpan(kA, d); if (kunciTampil === k) tampilAyat(d, "[ AYAT HARI INI ]"); window.kabar && window.kabar("ayat", "ok"); })
       .catch(function () {
         if (!tA) { tampilAyat(CADANGAN, "[ AYAT CADANGAN ]"); ulang = true; }
+        window.kabar && window.kabar("ayat", tA ? "cache" : "gagal");
       });
 
     var kH = "hadis6:" + k, tH = baca(kH);
     if (tH) tampilHadis(tH);
     pilihHadis(k)
-      .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); })
+      .then(function (h) { simpan(kH, h); if (kunciTampil === k) tampilHadis(h); window.kabar && window.kabar("hadis", "ok"); })
       .catch(function () {
         if (!tH) { $("hteks").textContent = "Hadis belum bisa dimuat. Periksa internet."; ulang = true; }
+        window.kabar && window.kabar("hadis", tH ? "cache" : "gagal");
       });
   }
   perbarui();

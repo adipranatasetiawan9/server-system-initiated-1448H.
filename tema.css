@@ -302,3 +302,100 @@ html,body{height:100vh;height:100dvh;overflow:hidden}
 }
 .p2-hadis{top:68%;height:15.4%;font-size:3.5cqw;line-height:1.25}
 .p2-id{top:84.2%;height:10.8%}
+
+/* ===== Halaman 1 versi aplikasi ===== */
+.petunjuk{display:none}
+.appbar{
+  position:absolute;left:4%;right:4%;top:1.3%;height:4%;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:Consolas,"Courier New",monospace;
+}
+.app-kiri{display:flex;align-items:center;gap:1.6cqw;color:var(--a);font-weight:700;font-size:3.1cqw;letter-spacing:.06em;text-shadow:0 0 6px var(--g)}
+.app-logo{width:5.2cqw;height:5.2cqw;flex:none}
+.app-kanan{display:flex;align-items:center;gap:2.4cqw;font-size:2.6cqw}
+.live{display:flex;align-items:center;gap:1.2cqw;padding:.6cqw 2cqw;border-radius:5cqw;border:1px solid rgba(255,255,255,.35);color:#fff;white-space:nowrap}
+.live-titik{width:1.9cqw;height:1.9cqw;border-radius:50%;background:#9aa4b2;flex:none}
+.live.on{border-color:#39ff88;color:#c9ffe0}
+.live.on .live-titik{background:#39ff88;box-shadow:0 0 6px #39ff88;animation:kedipLive 1.2s infinite}
+.live.off{border-color:#ff5252;color:#ffc2c2}
+.live.off .live-titik{background:#ff5252}
+.jam{color:#d9f6ff;white-space:nowrap}
+@keyframes kedipLive{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* tata letak: sisakan ruang untuk bilah navigasi bawah */
+.foto{height:27%}
+.baris{top:46.1%;height:12.4%}
+.ayat{top:59.2%;height:16.8%}
+.hadis{top:76.8%;height:9.8%}
+.footer{bottom:6.2%}
+
+/* bilah navigasi bawah (tab) */
+.titik{
+  --a:#3ff0ff;left:50%;bottom:0;transform:translateX(-50%);gap:0;
+  width:min(100vw,calc(100dvh * 9 / 16));
+  height:calc(min(100vw,calc(100dvh * 9 / 16)) * .092);
+  background:rgba(2,8,22,.95);border-top:1px solid rgba(255,255,255,.18);
+}
+.titik button{
+  flex:1;width:auto;height:100%;border-radius:0;background:transparent;color:#8fa3b8;
+  display:flex;align-items:center;justify-content:center;gap:8px;font:600 12px Inter,Arial,sans-serif;
+}
+.titik button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.titik button.on{background:transparent;color:var(--a)}
+.titik button.on svg{filter:drop-shadow(0 0 4px var(--a))}
+
+/* kartu hidup: History berputar dan berkedip */
+.ik-hist{animation:kedipIk 1.8s ease-in-out infinite}
+.ik-hist .mer{transform-box:fill-box;transform-origin:center}
+.ik-hist .m1{animation:putar1 3.2s ease-in-out infinite}
+.ik-hist .m2{animation:putar2 3.2s ease-in-out infinite}
+@keyframes putar1{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.08)}}
+@keyframes putar2{0%,100%{transform:scaleX(.08)}50%{transform:scaleX(1)}}
+@keyframes kedipIk{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* kartu hidup: Firewall, perisai bercahaya dengan gembok, menahan serangan */
+.ik-fw{overflow:visible;animation:cahaya 2.2s ease-in-out infinite}
+@keyframes cahaya{
+  0%,100%{filter:drop-shadow(0 0 2px var(--a))}
+  50%{filter:drop-shadow(0 0 9px var(--a)) drop-shadow(0 0 3px var(--a))}
+}
+.ik-fw .aura{fill:var(--a);stroke:none;opacity:.14;transform-box:fill-box;transform-origin:center;animation:aura 2.2s ease-in-out infinite}
+@keyframes aura{0%,100%{transform:scale(.85);opacity:.08}50%{transform:scale(1.1);opacity:.22}}
+.ik-fw .gembok{stroke:var(--a);stroke-width:2.4;fill:none}
+.ik-fw rect.gembok{fill:var(--a);fill-opacity:.3}
+.ik-fw .atk{fill:#ff5252;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:serang 2.6s ease-in infinite}
+@keyframes serang{
+  0%{opacity:0;transform:translate(var(--sx),var(--sy))}
+  15%{opacity:1}
+  68%{opacity:1;transform:translate(0,0)}
+  78%{opacity:0;transform:translate(0,0) scale(2.4)}
+  100%{opacity:0;transform:translate(0,0)}
+}
+
+/* kartu hidup: Local Data, radar berdenyut */
+.ik-loc{overflow:visible}
+.ik-loc .radar{fill:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:radar 2.4s ease-out infinite}
+.ik-loc .r2{animation-delay:1.2s}
+@keyframes radar{0%{transform:scale(1);opacity:.85}100%{transform:scale(4.2);opacity:0}}
+
+/* kalau server putus, animasi kartu berhenti dan meredup */
+body.offline .kartu svg,body.offline .kartu svg *{animation-play-state:paused}
+body.offline .kartu svg{opacity:.45}
+@media (prefers-reduced-motion:reduce){.kartu svg,.kartu svg *{animation:none!important}}
+
+/* layar pembuka */
+#boot{position:fixed;inset:0;z-index:100;background:#02060f;display:flex;align-items:center;justify-content:center;font-family:Consolas,"Courier New",monospace;color:#d9f6ff;transition:opacity .5s}
+#boot.pudar{opacity:0;pointer-events:none}
+.boot-isi{width:min(88vw,460px);display:flex;flex-direction:column;gap:14px}
+.boot-logo{width:64px;height:64px;align-self:center}
+.boot-judul{text-align:center;font-size:20px;letter-spacing:.14em;color:#3ff0ff;font-weight:700}
+.boot-log{min-height:210px;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.boot-log .cmd{color:#fff;font-weight:700}
+.boot-log .tunggu{color:#8fb4c8}
+.boot-log .ok{color:#39ff88}
+.boot-log .tanda{color:#ffc94d}
+.boot-log .gagal{color:#ff6b6b}
+.boot-bar{height:10px;border:1px solid rgba(63,240,255,.6);border-radius:6px;overflow:hidden}
+.boot-isi-bar{height:100%;width:0;background:#3ff0ff;box-shadow:0 0 10px #3ff0ff;transition:width .4s}
+.boot-info{display:flex;justify-content:space-between;font-size:13px;color:#8fb4c8}
+.boot-lewati{text-align:center;font-size:12px;color:#5c7a8c}
