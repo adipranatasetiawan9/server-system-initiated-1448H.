@@ -1,4 +1,9 @@
 (function () {
+  var JEDA_LANGKAH = 2000;   // jeda minimum tiap langkah (ms), supaya pemeriksaan terbaca. Makin besar makin lambat.
+  var JEDA_AWAL = 1200;      // jeda sebelum pemeriksaan pertama (ms)
+  var JEDA_TUTUP = 3500;     // lama layar "STAY CONNECTED" sebelum menutup sendiri (ms)
+  var AWAL_HITUNG = "2026-10-19";   // tanggal awal bilah menuju Ramadan
+
   var STATUS = window.STATUS = { ayat: null, hadis: null };
   window.kabar = function (kunci, nilai) {
     STATUS[kunci] = nilai;
@@ -9,11 +14,12 @@
   var kv = document.querySelector(".kanvas");
   var nav = document.querySelector(".titik");
 
-  /* ---------- jam WIB dan hitung mundur ke pergantian konten (00.00 WIB) ---------- */
-  var fJam = null, fBagian = null;
+  /* ---------- jam WIB, hitung mundur 00.00 WIB, dan bilah menuju Ramadan ---------- */
+  var fJam = null, fBagian = null, fTgl = null;
   try {
     fJam = new Intl.DateTimeFormat("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
     fBagian = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" });
+    fTgl = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta", year: "numeric", month: "2-digit", day: "2-digit" });
   } catch (e) {}
   function jamWIB(d) { return fJam ? fJam.format(d).replace(/:/g, ".") : "--.--.--"; }
   function dua(n) { return (n < 10 ? "0" : "") + n; }
@@ -27,10 +33,22 @@
     }
     return 86400 - (h * 3600 + m * 60 + s);
   }
+  function nomorTgl(s) { var p = s.split("-"); return Math.floor(Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5); }
+  function menujuRamadan() {
+    if (!fTgl || !window.KONFIG || !KONFIG.targetRamadhan) return null;
+    var t = nomorTgl(KONFIG.targetRamadhan), n = nomorTgl(fTgl.format(new Date())), a = nomorTgl(AWAL_HITUNG);
+    var total = Math.max(1, t - a), sisa = t - n;
+    return { sisa: sisa, pct: Math.max(0, Math.min(100, Math.round((total - sisa) / total * 100))) };
+  }
   function tik() {
     var j = $("jam"); if (j) j.textContent = jamWIB(new Date()) + " WIB";
     var e = $("hitung"), r = sisaHari();
     if (e && r !== null) e.textContent = dua(Math.floor(r / 3600)) + ":" + dua(Math.floor(r % 3600 / 60)) + ":" + dua(r % 60);
+    var m = menujuRamadan(), si = $("sisa-isi"), st = $("sisa-teks");
+    if (m) {
+      if (si) si.style.width = m.pct + "%";
+      if (st) st.textContent = m.sisa > 0 ? m.sisa + " HARI \u2022 " + m.pct + "%" : "TELAH TIBA";
+    }
   }
   tik(); setInterval(tik, 1000);
 
@@ -79,7 +97,7 @@
   window.addEventListener("online", denyut);
   window.addEventListener("offline", function () { setLive(false); });
 
-  /* ---------- layar pembuka bergaya aplikasi (sekali tiap kunjungan) ---------- */
+  /* ---------- layar pembuka ala loading game (sekali tiap kunjungan) ---------- */
   var sudah = false;
   try { sudah = sessionStorage.getItem("boot-sudah") === "1"; sessionStorage.setItem("boot-sudah", "1"); } catch (e) {}
   if (sudah) { denyut(); return; }
@@ -93,28 +111,37 @@
     gerigi: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>',
     wifi: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5.5 12.5a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg>'
   };
-  function barisHTML(id, ikon, nama) {
-    return '<div class="br"><span class="br-ikon">' + ikon + '</span><span class="br-nama">' + nama + '</span><span class="br-lencana tunggu" id="' + id + '">...</span></div>';
+  function barisHTML(kunci, ikon, nama) {
+    return '<div class="br" id="br-' + kunci + '"><span class="br-ikon">' + ikon + '</span><span class="br-nama">' + nama + '</span><span class="br-lencana tunggu" id="bl-' + kunci + '">MENUNGGU</span></div>';
   }
+  var TIPS = [
+    "Ayat dan hadis berganti otomatis tiap pukul 00.00 WIB.",
+    "Geser layar ke kiri untuk melihat hitung mundur Ramadan.",
+    "Foto masjid di halaman 2 berganti setiap hari.",
+    "Warna dan gaya huruf juga berganti tiap hari.",
+    "Lencana LIVE memeriksa server tiap 30 detik."
+  ];
 
   var layar = document.createElement("div");
   layar.id = "boot";
   layar.innerHTML =
     '<div class="boot-bungkus">' +
-    '<svg class="boot-bulan" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-boot"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="#ffc94d" mask="url(#bulan-boot)"/></svg>' +
+    '<div class="boot-logo-w"><svg class="boot-cincin" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#3ff0ff" stroke-width="1.4" stroke-dasharray="6 5"/><circle cx="50" cy="50" r="41" fill="none" stroke="#ffc94d" stroke-width="1" stroke-dasharray="2 7"/></svg>' +
+    '<svg class="boot-bulan" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-boot"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="#ffc94d" mask="url(#bulan-boot)"/></svg></div>' +
     '<div class="boot-isi">' +
-    '<div class="boot-status" id="boot-status">' + IK.gerigi + '<span id="boot-status-teks">SYSTEM STATUS : MEMERIKSA</span></div>' +
+    '<div class="boot-status" id="boot-status">' + IK.gerigi + '<span id="boot-status-teks">SYSTEM STATUS : MEMULAI</span></div>' +
     '<div class="boot-judul"><span class="b1">RAMADHAN</span><span class="b2">SERVER 1448H</span></div>' +
-    '<div class="boot-sub" id="boot-sub">Memeriksa server dan memuat konten harian...</div>' +
+    '<div class="boot-sub" id="boot-sub">Menyiapkan server...</div>' +
     '<div class="boot-daftar">' +
-      barisHTML("bl-live", IK.server, "&gt; live.exe") +
-      barisHTML("bl-waktu", IK.jam, "waktu server") +
-      barisHTML("bl-tema", IK.kode, "&gt; ramadhan.bat") +
-      barisHTML("bl-ayat", IK.buku, "ayat harian") +
-      barisHTML("bl-hadis", IK.kutip, "hadis harian") +
+      barisHTML("live", IK.server, "&gt; live.exe") +
+      barisHTML("waktu", IK.jam, "waktu server") +
+      barisHTML("tema", IK.kode, "&gt; ramadhan.bat") +
+      barisHTML("ayat", IK.buku, "ayat harian") +
+      barisHTML("hadis", IK.kutip, "hadis harian") +
     '</div>' +
     '<div class="boot-progres"><div class="boot-p-kiri">&gt; loading</div><div class="boot-persen" id="boot-persen">0%</div></div>' +
     '<div class="boot-bar"><div class="boot-isi-bar" id="boot-bar"></div></div>' +
+    '<div class="boot-tips" id="boot-tips">TIPS: ' + TIPS[0] + '</div>' +
     '<button type="button" class="boot-tombol" id="boot-tombol">' + IK.wifi + '<span id="boot-tombol-teks">LEWATI</span></button>' +
     '</div></div>';
   document.body.appendChild(layar);
@@ -124,22 +151,38 @@
     if (tertutup) return;
     tertutup = true;
     layar.classList.add("pudar");
-    setTimeout(function () { if (layar.parentNode) layar.parentNode.removeChild(layar); }, 600);
+    setTimeout(function () { if (layar.parentNode) layar.parentNode.removeChild(layar); }, 700);
     selaras();
   }
   var tb = $("boot-tombol");
   if (tb) tb.addEventListener("click", tutup);
 
-  function lencana(id, kelas, teks) {
-    var e = $(id);
+  function lencana(kunci, kelas, teks) {
+    var e = $("bl-" + kunci);
     if (e) { e.className = "br-lencana " + kelas; e.textContent = teks; }
   }
-  function progres(p) {
-    var b = $("boot-bar"), t = $("boot-persen");
-    p = Math.max(0, Math.min(100, Math.round(p)));
-    if (b) b.style.width = p + "%";
+  function tidur(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  /* bilah progres: angka naik pelan menuju target nyata (langkah selesai / total) */
+  var target = 0, tampil = 0;
+  function gambarProgres() {
+    if (tertutup) return;
+    tampil += Math.max(0.12, (target - tampil) * 0.045);
+    if (tampil > target) tampil = target;
+    var p = Math.round(tampil), b = $("boot-bar"), t = $("boot-persen");
+    if (b) b.style.width = tampil + "%";
     if (t) t.textContent = p + "%";
+    requestAnimationFrame(gambarProgres);
   }
+  requestAnimationFrame(gambarProgres);
+
+  var tipsNo = 0;
+  var tipsId = setInterval(function () {
+    if (tertutup) { clearInterval(tipsId); return; }
+    tipsNo = (tipsNo + 1) % TIPS.length;
+    var e = $("boot-tips");
+    if (e) { e.className = "boot-tips ganti"; setTimeout(function () { e.textContent = "TIPS: " + TIPS[tipsNo]; e.className = "boot-tips"; }, 250); }
+  }, 2600);
 
   function dariDOM(kunci) {
     if (kunci === "ayat") {
@@ -163,8 +206,25 @@
     });
   }
 
-  var total = 4, selesaiN = 0, serverOk = false, semuaOk = true, sudahSelesai = false;
-  var mulai = Date.now();
+  var total = 5, selesaiN = 0, serverOk = false, semuaOk = true, hasilPing = null, sudahSelesai = false;
+  var mulai = Date.now(), batasMuat = mulai + 15000;
+
+  /* satu langkah: tandai aktif, jalankan pemeriksaan nyata, tahan minimal JEDA_LANGKAH */
+  function langkah(kunci, subteks, kerja) {
+    var baris = $("br-" + kunci), sub = $("boot-sub");
+    if (baris) baris.className = "br aktif";
+    if (sub) sub.textContent = subteks;
+    lencana(kunci, "jalan", "MEMERIKSA");
+    var t0 = Date.now();
+    return Promise.resolve().then(kerja).then(function (h) {
+      return tidur(Math.max(0, JEDA_LANGKAH - (Date.now() - t0))).then(function () { return h; });
+    }).then(function (h) {
+      lencana(kunci, h.kelas, h.teks);
+      if (baris) baris.className = "br";
+      selesaiN++;
+      target = selesaiN / total * 100;
+    });
+  }
 
   function selesai() {
     if (sudahSelesai) return;
@@ -174,42 +234,57 @@
       : (serverOk ? "Server aktif. Sebagian modul memakai data tersimpan." : "Tidak ada koneksi. Memakai data tersimpan.");
     if (stt) stt.textContent = "SYSTEM STATUS : " + (serverOk ? "LIVE" : "OFFLINE");
     if (st) st.className = "boot-status" + (serverOk ? "" : " off");
-    if (tb) tb.className = "boot-tombol" + (serverOk ? "" : " off");
+    if (tb) tb.className = "boot-tombol" + (serverOk ? " siap" : " off");
     if (tt) tt.textContent = serverOk ? "STAY CONNECTED" : "OFFLINE MODE";
-    progres(100);
-    setTimeout(tutup, 2600);
+    target = 100;
+    setTimeout(tutup, JEDA_TUTUP);
   }
-  function maju() { selesaiN++; progres(selesaiN / total * 100); if (selesaiN >= total) selesai(); }
 
-  // live.exe
-  ping().then(function (r) {
-    serverOk = true;
-    lencana("bl-live", "ok", "LIVE " + r.ms + " ms");
-    lencana("bl-waktu", "info", r.waktu ? jamWIB(r.waktu) + " WIB" : "-");
-    setLive(true, r.ms);
-  }).catch(function () {
-    semuaOk = false;
-    lencana("bl-live", "gagal", "OFFLINE");
-    lencana("bl-waktu", "gagal", "-");
-    setLive(false);
-  }).then(maju);
+  tidur(JEDA_AWAL)
+    .then(function () {
+      return langkah("live", "Menghubungi server...", function () {
+        return ping().then(function (r) {
+          serverOk = true; hasilPing = r; setLive(true, r.ms);
+          return { kelas: "ok", teks: "LIVE " + r.ms + " ms" };
+        }).catch(function () {
+          semuaOk = false; setLive(false);
+          return { kelas: "gagal", teks: "OFFLINE" };
+        });
+      });
+    })
+    .then(function () {
+      return langkah("waktu", "Menyinkronkan waktu server...", function () {
+        if (hasilPing && hasilPing.waktu) return { kelas: "info", teks: jamWIB(hasilPing.waktu) + " WIB" };
+        semuaOk = false; return { kelas: "gagal", teks: "TIDAK ADA" };
+      });
+    })
+    .then(function () {
+      return langkah("tema", "Memasang tema dan font hari ini...", function () {
+        var tema = kv ? kv.getAttribute("data-tema") : null;
+        if (tema) return { kelas: "info", teks: "TEMA " + tema.replace(/^t/, "") };
+        semuaOk = false; return { kelas: "gagal", teks: "BELUM" };
+      });
+    })
+    .then(function () {
+      return langkah("ayat", "Memuat ayat harian...", function () {
+        return tunggu("ayat", batasMuat).then(function (v) {
+          if (v === "ok") return { kelas: "ok", teks: "OK" };
+          semuaOk = false;
+          return v === "cache" ? { kelas: "tanda", teks: "SIMPANAN" } : { kelas: "gagal", teks: "GAGAL" };
+        });
+      });
+    })
+    .then(function () {
+      return langkah("hadis", "Memuat hadis harian...", function () {
+        return tunggu("hadis", batasMuat).then(function (v) {
+          if (v === "ok") return { kelas: "ok", teks: "OK" };
+          semuaOk = false;
+          return v === "cache" ? { kelas: "tanda", teks: "SIMPANAN" } : { kelas: "gagal", teks: "GAGAL" };
+        });
+      });
+    })
+    .then(selesai);
 
-  // ramadhan.bat
-  var tema = kv ? kv.getAttribute("data-tema") : null;
-  if (tema) lencana("bl-tema", "info", "TEMA " + tema.replace(/^t/, ""));
-  else { semuaOk = false; lencana("bl-tema", "gagal", "BELUM"); }
-  maju();
-
-  var batas = mulai + 12000;
-  [["ayat", "bl-ayat"], ["hadis", "bl-hadis"]].forEach(function (p) {
-    tunggu(p[0], batas).then(function (v) {
-      if (v === "ok") lencana(p[1], "ok", "OK");
-      else if (v === "cache") { semuaOk = false; lencana(p[1], "tanda", "SIMPANAN"); }
-      else { semuaOk = false; lencana(p[1], "gagal", "GAGAL"); }
-      maju();
-    });
-  });
-
-  setTimeout(function () { selesai(); }, 20000);   // pengaman: tidak pernah menahan halaman lebih dari 20 detik
-  setTimeout(tutup, 23000);
+  setTimeout(selesai, 30000);   // pengaman
+  setTimeout(tutup, 36000);     // pengaman: tidak pernah menahan halaman lebih dari 36 detik
 })();

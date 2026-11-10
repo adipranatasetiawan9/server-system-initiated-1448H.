@@ -532,3 +532,133 @@ body.offline .ai svg{opacity:.45}
 .boot-tombol.off{border-color:#ff5252;box-shadow:0 0 14px rgba(255,82,82,.5)}
 .boot-tombol.off svg{stroke:#ff6b6b}
 @media (prefers-reduced-motion:reduce){.boot-isi-bar,.boot-bulan{animation:none}}
+
+
+/* ===== v2: tata letak seperti poster ChatGPT ===== */
+.kanvas.v2{--emas:#ffc94d}
+.kanvas.v2 .appbar{top:1%}
+.kanvas.v2 .foto{top:5.2%;height:20.8%;--fy:44%;animation:none}
+.kanvas.v2 .lokasi{top:auto;left:auto;right:3%;bottom:12%}
+
+/* langit, bintang, bulan sabit, salam */
+.bintang{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.bt{fill:#fff;animation:kelipBt 3s ease-in-out infinite}
+.bt.b2{animation-delay:1s}.bt.b3{animation-delay:2s}
+@keyframes kelipBt{0%,100%{opacity:.25}50%{opacity:1}}
+.bulan2{
+  position:absolute;left:34%;top:6%;width:17cqw;height:17cqw;z-index:2;
+  filter:drop-shadow(0 0 5px #fff3c4) drop-shadow(0 0 14px rgba(255,201,77,.8)) drop-shadow(0 0 30px rgba(255,170,40,.5));
+  animation:denyutBulan 4s ease-in-out infinite;
+}
+.kilau{transform-box:fill-box;transform-origin:center;animation:kilauan 2.4s ease-in-out infinite}
+@keyframes kilauan{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.2);opacity:1}}
+.salam{position:absolute;right:4%;top:9%;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4cqw}
+.ar-salam{font:700 7.4cqw/1.15 "Amiri","Noto Naskh Arabic","Traditional Arabic",serif;color:#ffd877;text-shadow:0 0 8px rgba(255,201,77,.75),0 0 18px rgba(255,160,30,.5)}
+.lt-salam{font:italic 2.5cqw Georgia,"Times New Roman",serif;color:#ffe9a8;letter-spacing:.04em}
+
+/* komponen bingkai: sudut miring, garis ganda, cahaya */
+.bk{position:absolute;left:3%;right:3%;filter:drop-shadow(0 0 4px var(--g))}
+.bk-isi{
+  --b:11px;--garis:var(--a);
+  position:relative;width:100%;height:100%;box-sizing:border-box;overflow:hidden;
+  background:
+    linear-gradient(135deg,transparent calc(50% - 1px),var(--garis) calc(50% - 1px),var(--garis) calc(50% + 1px),transparent calc(50% + 1px)) top left/var(--b) var(--b) no-repeat,
+    linear-gradient(45deg,transparent calc(50% - 1px),var(--garis) calc(50% - 1px),var(--garis) calc(50% + 1px),transparent calc(50% + 1px)) top right/var(--b) var(--b) no-repeat,
+    linear-gradient(45deg,transparent calc(50% - 1px),var(--garis) calc(50% - 1px),var(--garis) calc(50% + 1px),transparent calc(50% + 1px)) bottom left/var(--b) var(--b) no-repeat,
+    linear-gradient(135deg,transparent calc(50% - 1px),var(--garis) calc(50% - 1px),var(--garis) calc(50% + 1px),transparent calc(50% + 1px)) bottom right/var(--b) var(--b) no-repeat,
+    var(--bg);
+  border:1.5px solid var(--garis);
+  box-shadow:inset 0 0 0 3px rgba(2,8,22,.85),inset 0 0 0 4px rgba(255,255,255,.14),inset 0 0 16px var(--g);
+  clip-path:polygon(var(--b) 0,calc(100% - var(--b)) 0,100% var(--b),100% calc(100% - var(--b)),calc(100% - var(--b)) 100%,var(--b) 100%,0 calc(100% - var(--b)),0 var(--b));
+}
+
+/* panel judul */
+.pn-judul{top:26.4%;height:14.8%}
+.pn-judul .bk-isi{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6cqw;padding:1cqw 3cqw;--garis:var(--emas)}
+.kanvas.v2 .judul{position:static;width:100%;padding:0;text-align:center;white-space:nowrap;font-size:6.6cqw;line-height:1.06;font-style:italic;animation:none;letter-spacing:.01em}
+.kanvas.v2 .subjudul{position:static;width:100%;margin:0;text-align:center;white-space:nowrap;font-size:2.7cqw;letter-spacing:.06em;animation:none}
+.sisa{width:100%;display:flex;align-items:center;gap:2cqw;padding:.5cqw 2cqw;border:1px solid var(--emas);border-radius:5cqw;background:rgba(2,10,28,.6)}
+.s-kiri{flex:none;font:700 2.1cqw Consolas,"Courier New",monospace;color:var(--emas);letter-spacing:.05em}
+.s-kanan{flex:none;font:700 2.1cqw Consolas,"Courier New",monospace;color:#fff;letter-spacing:.04em}
+.s-bar{flex:1;height:2.2cqw;border:1px solid var(--a);border-radius:2cqw;overflow:hidden;background:rgba(2,10,28,.8)}
+.s-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(135deg,#ffc94d 0 6px,#ffe08a 6px 12px);background-size:17px 17px;animation:gerakBar 1.2s linear infinite;transition:width 1s}
+
+/* empat kartu 2x2 */
+.kisi{position:absolute;left:3%;right:3%;top:41.8%;height:16.6%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.9cqw 2cqw}
+.kisi .bk{position:static;left:auto;right:auto;min-height:0;min-width:0}
+.kt .bk-isi{display:flex;align-items:center;gap:1cqw;padding:.6cqw 1.4cqw .6cqw 1cqw}
+.ik{flex:none;width:12.4cqw;height:12.4cqw;overflow:visible;filter:drop-shadow(0 0 3px var(--a))}
+.kt-isi{flex:1;min-width:0;display:flex;flex-direction:column;gap:.3cqw;border-left:1px solid var(--g);padding-left:1.2cqw}
+.kt-isi h3{font:700 2.2cqw/1.1 Consolas,"Courier New",monospace;color:var(--a);letter-spacing:.02em;white-space:nowrap}
+.kt-isi p{font:400 1.8cqw/1.27 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:#e8f6ff}
+.kt-isi b{color:var(--emas);font-weight:700}
+.kt-isi small{font:600 1.5cqw Consolas,monospace;color:#9fdcea;letter-spacing:.06em}
+.kt-isi i{font:700 2.8cqw Consolas,"Courier New",monospace;font-style:normal;color:var(--emas);text-shadow:0 0 8px rgba(255,201,77,.6);display:block}
+.h-hijau h3,.h-hijau b{color:#39ff88}
+.h-cyan b{color:#7de9ff}
+
+/* ikon hologram */
+.ik .cn{fill:none;stroke:var(--a);stroke-width:1.2;opacity:.7;transform-box:fill-box;transform-origin:center;animation:cincin 2.4s ease-out infinite}
+.ik .c2{animation-delay:1.2s}
+@keyframes cincin{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.3);opacity:0}}
+.ik-bumi .mer{transform-box:fill-box;transform-origin:center}
+.ik-bumi .m1{animation:putar1 3.2s ease-in-out infinite}
+.ik-bumi .m2{animation:putar2 3.2s ease-in-out infinite}
+.ik .arc{fill:none;stroke-dasharray:3 3;animation:alirArc 1.2s linear infinite}
+@keyframes alirArc{to{stroke-dashoffset:-12}}
+.ik .nod2{animation:pikir 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ik .d2{animation-delay:.8s}
+.ik-peris{animation:cahaya 2.2s ease-in-out infinite}
+.ik-peris .aura{fill:var(--a);stroke:none;opacity:.14;transform-box:fill-box;transform-origin:center;animation:aura 2.2s ease-in-out infinite}
+.ik-peris .atk{fill:#ff5252;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:serang 2.6s ease-in infinite}
+.ik-pin .radar{fill:none;stroke:var(--a);opacity:0;transform-box:fill-box;transform-origin:center;animation:radar 2.4s ease-out infinite}
+.ik-pin .r2{animation-delay:1.2s}
+.ik-otak{animation:cahaya 2.6s ease-in-out infinite}
+.ik-otak .nod{fill:#ffc94d;stroke:none;transform-box:fill-box;transform-origin:center;animation:pikir 1.6s ease-in-out infinite}
+.ik-otak .n2{animation-delay:.4s}.ik-otak .n3{animation-delay:.8s}.ik-otak .n4{animation-delay:1.2s}
+.ik-otak .sinyal{stroke-dasharray:4 9;animation:alirArc 1.3s linear infinite}
+body.offline .kt svg,body.offline .kt svg *{animation-play-state:paused}
+body.offline .kt svg{opacity:.45}
+@media (prefers-reduced-motion:reduce){.kt svg,.kt svg *,.bt,.bulan2,.kilau,.lentera{animation:none!important}}
+
+/* ayat (bingkai emas dan lentera) */
+.pn-ayat{top:58.9%;height:16.1%}
+.pn-ayat .bk-isi{--garis:var(--emas);padding:1.2cqw 7.5cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5cqw;text-align:center}
+.lb{font:700 1.9cqw Consolas,"Courier New",monospace;color:var(--a);letter-spacing:.07em}
+.ar{font-family:"Traditional Arabic","Noto Naskh Arabic","Droid Arabic Naskh",serif;direction:rtl;font-size:4.5cqw;line-height:1.5;color:#fff;text-shadow:0 0 8px var(--g)}
+.at{font:italic 2.1cqw/1.28 var(--fb,"Segoe UI"),Georgia,serif;color:var(--t)}
+.rf{font:700 2.1cqw Consolas,"Courier New",monospace;color:var(--r);letter-spacing:.03em}
+.pn-ayat .rf::before{content:"\2192  "}
+.pn-ayat .rf::after{content:"  \2190"}
+.lentera{position:absolute;top:-1.4cqw;width:6.2cqw;height:12.4cqw;z-index:3;filter:drop-shadow(0 0 6px #ffb347) drop-shadow(0 0 12px rgba(255,170,40,.5));animation:kelipLen 3s ease-in-out infinite}
+.l-kiri{left:-1.2cqw}.l-kanan{right:-1.2cqw;animation-delay:1.2s}
+@keyframes kelipLen{0%,100%{opacity:.85}50%{opacity:1}}
+
+/* hadis */
+.pn-hadis{top:75.6%;height:9.7%}
+.pn-hadis .bk-isi{--garis:var(--emas);padding:.9cqw 3cqw;display:flex;flex-direction:column;justify-content:center;gap:.5cqw}
+.kp{display:flex;justify-content:space-between;align-items:baseline}
+.ht{font:500 2.5cqw/1.3 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:#fff;text-align:center}
+.dr{font:400 1.7cqw/1.2 Consolas,"Courier New",monospace;color:var(--a);text-align:center}
+
+/* footer identitas */
+.pn-footer{top:85.9%;height:7.9%}
+.pn-footer .bk-isi{--garis:var(--emas);padding:.8cqw 3cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2cqw;text-align:center}
+.f-nama{font:700 3.1cqw/1.15 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:#fff;letter-spacing:.02em}
+.f-prodi{font:700 2.2cqw/1.2 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:var(--emas);letter-spacing:.05em;text-shadow:0 0 6px rgba(255,201,77,.4)}
+.f-kampus{font:600 2.1cqw/1.2 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:#fff;letter-spacing:.04em}
+.f-email{font:500 1.9cqw/1.2 var(--fb,"Segoe UI"),"Segoe UI",Roboto,Arial,sans-serif;color:var(--a)}
+
+/* layar pembuka ala loading game */
+.boot-logo-w{position:relative;width:84px;height:84px;margin-bottom:6px;z-index:2;display:flex;align-items:center;justify-content:center}
+.boot-cincin{position:absolute;inset:0;width:100%;height:100%;animation:putarCincin 9s linear infinite}
+@keyframes putarCincin{to{transform:rotate(360deg)}}
+.boot-logo-w .boot-bulan{position:relative;width:56px;height:56px;margin:0}
+.br{padding:2px 4px;border:1px solid transparent;border-radius:8px;transition:background .3s,border-color .3s}
+.br.aktif{border-color:rgba(63,240,255,.8);background:rgba(63,240,255,.1);box-shadow:0 0 12px rgba(63,240,255,.35)}
+.br-lencana.jalan{color:#7de9ff;border-color:#3ff0ff;animation:kedipLen2 .9s ease-in-out infinite}
+@keyframes kedipLen2{0%,100%{opacity:1}50%{opacity:.45}}
+.boot-tips{min-height:30px;text-align:center;font:italic 500 12px/1.35 Inter,Arial,sans-serif;color:#ffe9a8;transition:opacity .25s}
+.boot-tips.ganti{opacity:0}
+.boot-tombol.siap{animation:denyutTombol 1.4s ease-in-out infinite}
+@keyframes denyutTombol{0%,100%{box-shadow:0 0 12px rgba(63,240,255,.45)}50%{box-shadow:0 0 26px rgba(63,240,255,.95)}}

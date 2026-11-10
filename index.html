@@ -6,85 +6,154 @@
 <title>How Ramadan Changed the World!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Allura&family=League+Spartan:wght@700&family=Inter:wght@700&display=swap">
-<link rel="stylesheet" href="tema.css?v=11">
+<link rel="stylesheet" href="tema.css?v=12">
 </head>
 <body>
   <div class="pager" id="pager">
 
     <!-- ===== HALAMAN 1 ===== -->
     <section class="halaman" id="h1">
-      <div class="kanvas">
+      <div class="kanvas v2">
         <canvas class="jaringan" id="jaringan"></canvas>
+
         <div class="appbar">
-      <div class="app-kiri">
-        <svg class="app-logo" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-app"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="currentColor" mask="url(#bulan-app)"/></svg>
-        <b>RAMADHAN 1448H</b>
-      </div>
-      <div class="app-kanan">
-        <span class="live" id="live"><i class="live-titik"></i><b id="live-teks">MEMERIKSA</b></span>
-        <span class="jam" id="jam">--.--.--</span>
-      </div>
-    </div>
-        <h1 class="judul"><span class="j1">HOW RAMADAN</span><br><span class="j2">CHANGED THE WORLD!</span></h1>
-        <p class="subjudul">History • Virtues &amp; Madura Traditions</p>
+          <div class="app-kiri">
+            <svg class="app-logo" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-app"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="currentColor" mask="url(#bulan-app)"/></svg>
+            <b>RAMADHAN 1448H</b>
+          </div>
+          <div class="app-kanan">
+            <span class="live" id="live"><i class="live-titik"></i><b id="live-teks">MEMERIKSA</b></span>
+            <span class="jam" id="jam">--.--.--</span>
+          </div>
+        </div>
 
         <div class="foto">
-          <svg class="bulan" viewBox="0 0 360 360" aria-hidden="true"><defs><mask id="bulan-foto"><rect width="360" height="360" fill="#fff"/><circle cx="235" cy="150" r="130" fill="#000"/></mask></defs><circle cx="170" cy="190" r="140" fill="#ffc94d" mask="url(#bulan-foto)"/></svg>
-          <div class="ai">
-          <svg class="ik-ai" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 10C21 6 14 7 12 12C7 12 5 18 9 21C5 24 7 31 12 31C13 36 19 38 24 35"/><path d="M24 10C27 6 34 7 36 12C41 12 43 18 39 21C43 24 41 31 36 31C35 36 29 38 24 35"/><path d="M24 10V35"/><path d="M14 18C17 18 18 21 21 21M34 18C31 18 30 21 27 21M14 26C17 26 18 28 21 28M34 26C31 26 30 28 27 28"/><circle class="nod n1" cx="14" cy="18" r="1.6"/><circle class="nod n2" cx="34" cy="18" r="1.6"/><circle class="nod n3" cx="14" cy="26" r="1.6"/><circle class="nod n4" cx="34" cy="26" r="1.6"/></svg>
-          <div class="ai-teks"><b>SMART SYSTEM : ON</b><span>konten harian berganti otomatis tiap 00.00 WIB</span></div>
-          <div class="ai-waktu"><small>BERIKUTNYA</small><i id="hitung">--:--:--</i></div>
-        </div>
+          <svg class="bintang" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+            <circle class="bt b1" cx="8" cy="12" r=".5"/><circle class="bt b2" cx="19" cy="6" r=".4"/><circle class="bt b3" cx="27" cy="20" r=".5"/>
+            <circle class="bt b2" cx="62" cy="8" r=".4"/><circle class="bt b1" cx="71" cy="16" r=".5"/><circle class="bt b3" cx="84" cy="30" r=".4"/>
+            <circle class="bt b1" cx="92" cy="14" r=".5"/><circle class="bt b2" cx="55" cy="24" r=".4"/><circle class="bt b3" cx="14" cy="32" r=".4"/>
+            <circle class="bt b2" cx="44" cy="5" r=".5"/><circle class="bt b1" cx="97" cy="42" r=".4"/><circle class="bt b3" cx="33" cy="9" r=".4"/>
+          </svg>
+          <svg class="bulan2" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="gBulan" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d6"/><stop offset=".55" stop-color="#ffd877"/><stop offset="1" stop-color="#e7a42c"/></linearGradient>
+              <mask id="mBulan"><rect width="120" height="120" fill="#fff"/><circle cx="76" cy="48" r="38" fill="#000"/></mask>
+            </defs>
+            <circle cx="52" cy="62" r="46" fill="url(#gBulan)" mask="url(#mBulan)"/>
+            <path d="M22 44A38 38 0 0 0 30 98" fill="none" stroke="#fff6d6" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="1.5 4"/>
+            <path class="kilau" d="M100 22l2.2 6.4 6.4 2.2-6.4 2.2L100 39.2l-2.2-6.4-6.4-2.2 6.4-2.2z" fill="#fff3c4"/>
+          </svg>
+          <div class="salam"><span class="ar-salam">رمضان كريم</span><span class="lt-salam">Marhaban ya Ramadan</span></div>
           <div class="scan"></div>
           <div class="bidik"></div>
-          <div class="lokasi">
-            <b>MONUMEN AREK LANCOR</b>
-            <span>&gt; SCANNING LOCAL DATA: PAMEKASAN, MADURA</span>
+          <div class="lokasi"><b>MONUMEN AREK LANCOR</b><span>&gt; SCANNING LOCAL DATA: PAMEKASAN, MADURA</span></div>
+        </div>
+
+        <div class="bk pn-judul"><div class="bk-isi">
+          <h1 class="judul"><span class="j1">HOW RAMADAN</span><br><span class="j2">CHANGED THE WORLD!</span></h1>
+          <p class="subjudul">History &bull; Virtues &amp; Madura Traditions</p>
+          <div class="sisa">
+            <b class="s-kiri">RAMADHAN 1448H</b>
+            <div class="s-bar"><i id="sisa-isi"></i></div>
+            <b class="s-kanan" id="sisa-teks">-- HARI LAGI</b>
+          </div>
+        </div></div>
+
+        <div class="kisi">
+          <div class="bk kt"><div class="bk-isi">
+            <svg class="ik ik-bumi" viewBox="0 0 64 64" aria-hidden="true">
+              <defs>
+                <radialGradient id="gBumi" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#d9fbff"/><stop offset=".35" stop-color="#3aa0ff" stop-opacity=".85"/><stop offset="1" stop-color="#04163f" stop-opacity=".95"/></radialGradient>
+                <clipPath id="kBumi"><circle cx="32" cy="28" r="19"/></clipPath>
+              </defs>
+              <ellipse class="cn" cx="32" cy="55" rx="22" ry="5"/><ellipse class="cn c2" cx="32" cy="55" rx="14" ry="3.2"/>
+              <circle cx="32" cy="28" r="19" fill="url(#gBumi)" stroke="var(--a)" stroke-width="1.6"/>
+              <g clip-path="url(#kBumi)" fill="none" stroke="rgba(190,245,255,.8)" stroke-width="1">
+                <ellipse class="mer m1" cx="32" cy="28" rx="8" ry="19"/><ellipse class="mer m2" cx="32" cy="28" rx="8" ry="19"/>
+                <path d="M13 28h38M16 19h32M16 37h32"/>
+                <path class="arc" d="M20 32Q32 8 46 24" stroke="#ffc94d" stroke-width="1.4"/>
+                <circle class="nod2" cx="20" cy="32" r="1.8" fill="#ffc94d" stroke="none"/><circle class="nod2 d2" cx="46" cy="24" r="1.8" fill="#ffc94d" stroke="none"/>
+              </g>
+            </svg>
+            <div class="kt-isi"><h3>HISTORY</h3><p>The month that rewired global history and connected <b>billions of souls</b>.</p></div>
+          </div></div>
+
+          <div class="bk kt"><div class="bk-isi">
+            <svg class="ik ik-peris" viewBox="0 0 64 64" aria-hidden="true">
+              <defs>
+                <linearGradient id="gPeris" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fe9ff" stop-opacity=".9"/><stop offset="1" stop-color="#0a3d9a" stop-opacity=".85"/></linearGradient>
+                <linearGradient id="gGembok" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8fdcff"/></linearGradient>
+              </defs>
+              <ellipse class="cn" cx="32" cy="56" rx="22" ry="5"/><ellipse class="cn c2" cx="32" cy="56" rx="14" ry="3.2"/>
+              <circle class="aura" cx="32" cy="30" r="24"/>
+              <path d="M32 6L52 13V30C52 43 44 51 32 56C20 51 12 43 12 30V13Z" fill="url(#gPeris)" stroke="var(--a)" stroke-width="2"/>
+              <path d="M32 11L47 16.5V30C47 40 41 46 32 50C23 46 17 40 17 30V16.5Z" fill="none" stroke="#bff6ff" stroke-opacity=".5" stroke-width="1"/>
+              <path d="M27 29v-4a5 5 0 0 1 10 0v4" fill="none" stroke="#e8fbff" stroke-width="2.4" stroke-linecap="round"/>
+              <rect x="24" y="29" width="16" height="13" rx="2.5" fill="url(#gGembok)" stroke="#e8fbff" stroke-width="1.2"/>
+              <circle cx="32" cy="34.5" r="2" fill="#0a2a66"/><path d="M32 35.5v3.5" stroke="#0a2a66" stroke-width="1.6"/>
+              <circle class="atk" cx="9" cy="9" r="2" style="--sx:-9px;--sy:-7px"/><circle class="atk" cx="56" cy="13" r="2" style="--sx:9px;--sy:-8px;animation-delay:.9s"/><circle class="atk" cx="6" cy="36" r="2" style="--sx:-9px;--sy:4px;animation-delay:1.7s"/>
+            </svg>
+            <div class="kt-isi h-hijau"><h3>FIREWALL : ACTIVE</h3><p>Demons quarantined. Gates of hell locked. <b>Ultimate spiritual protection.</b></p></div>
+          </div></div>
+
+          <div class="bk kt"><div class="bk-isi">
+            <svg class="ik ik-pin" viewBox="0 0 64 64" aria-hidden="true">
+              <defs><linearGradient id="gPin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a9a"/><stop offset="1" stop-color="#d81b3c"/></linearGradient></defs>
+              <ellipse class="cn" cx="32" cy="56" rx="22" ry="5"/><ellipse class="cn c2" cx="32" cy="56" rx="14" ry="3.2"/>
+              <circle class="radar r1" cx="32" cy="52" r="5"/><circle class="radar r2" cx="32" cy="52" r="5"/>
+              <path class="arc" d="M3 46Q14 20 27 30" fill="none" stroke="#ffc94d" stroke-width="1.4"/>
+              <path d="M32 8C22 8 15 15 15 24c0 12 17 26 17 26s17-14 17-26C49 15 42 8 32 8Z" fill="url(#gPin)" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>
+              <circle cx="32" cy="24" r="6" fill="#fff"/>
+            </svg>
+            <div class="kt-isi h-cyan"><h3>LOCAL DATA</h3><p>From local traditions to global connections. <b>Are you ready for the upgrade?</b></p></div>
+          </div></div>
+
+          <div class="bk kt"><div class="bk-isi">
+            <svg class="ik ik-otak" viewBox="0 0 64 64" aria-hidden="true">
+              <defs><radialGradient id="gOtak" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#9ff3ff" stop-opacity=".6"/><stop offset="1" stop-color="#1c6bff" stop-opacity=".12"/></radialGradient></defs>
+              <ellipse class="cn" cx="32" cy="57" rx="20" ry="4.5"/><ellipse class="cn c2" cx="32" cy="57" rx="12" ry="3"/>
+              <path d="M32 10C28 5 19 6 16 12C9 12 6 20 10 25C5 29 8 38 15 39C15 46 22 51 29 47C30 49 31 49 32 48Z" fill="url(#gOtak)" stroke="var(--a)" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M32 10C36 5 45 6 48 12C55 12 58 20 54 25C59 29 56 38 49 39C49 46 42 51 35 47C34 49 33 49 32 48Z" fill="url(#gOtak)" stroke="var(--a)" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M32 48v6" stroke="var(--a)" stroke-width="2" stroke-linecap="round"/>
+              <g fill="none" stroke="#bff6ff" stroke-opacity=".7" stroke-width="1.1" stroke-linecap="round">
+                <path d="M18 18C22 18 23 22 27 22M13 29C18 28 20 32 25 31M19 41C23 39 25 41 29 40M24 12C25 15 27 16 29 16"/>
+                <path d="M46 18C42 18 41 22 37 22M51 29C46 28 44 32 39 31M45 41C41 39 39 41 35 40M40 12C39 15 37 16 35 16"/>
+              </g>
+              <g fill="none" stroke="#ffc94d" stroke-width="1.3" stroke-linecap="round"><path class="sinyal" d="M18 18C22 18 23 22 27 22M46 18C42 18 41 22 37 22M13 29C18 28 20 32 25 31M51 29C46 28 44 32 39 31"/></g>
+              <circle class="nod n1" cx="27" cy="22" r="1.7"/><circle class="nod n2" cx="37" cy="22" r="1.7"/><circle class="nod n3" cx="25" cy="31" r="1.7"/><circle class="nod n4" cx="39" cy="31" r="1.7"/>
+              <circle class="nod n2" cx="29" cy="40" r="1.7"/><circle class="nod n1" cx="35" cy="40" r="1.7"/>
+            </svg>
+            <div class="kt-isi"><h3>SMART SYSTEM : ON</h3><p>Konten berganti otomatis 00.00 WIB. <small>BERIKUTNYA</small> <i id="hitung">--:--:--</i></p></div>
+          </div></div>
+        </div>
+
+        <div class="bk pn-ayat">
+          <div class="bk-isi" id="ayat">
+            <div class="lb" id="label">[ AYAT HARI INI ]</div>
+            <div class="ar" id="arab">&gt; memuat ayat...</div>
+            <div class="at" id="arti"></div>
+            <div class="rf" id="ref"></div>
+          </div>
+          <svg class="lentera l-kiri" viewBox="0 0 32 64" aria-hidden="true"><defs><linearGradient id="gLen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".5" stop-color="#ffb84a"/><stop offset="1" stop-color="#d97d12"/></linearGradient></defs><path d="M16 0V9" stroke="#ffc94d" stroke-width="1.4"/><path d="M10 9h12l-2 5H12z" fill="#ffc94d"/><path d="M9 14h14l3 6v18l-3 6H9l-3-6V20z" fill="url(#gLen)" stroke="#ffd877" stroke-width="1"/><path d="M16 14v30M9 25h14M9 35h14" stroke="#8a4a05" stroke-width=".9" opacity=".7"/><path d="M10 44h12l-2 6H12z" fill="#ffc94d"/><circle cx="16" cy="53" r="1.6" fill="#ffc94d"/></svg>
+          <svg class="lentera l-kanan" viewBox="0 0 32 64" aria-hidden="true"><path d="M16 0V9" stroke="#ffc94d" stroke-width="1.4"/><path d="M10 9h12l-2 5H12z" fill="#ffc94d"/><path d="M9 14h14l3 6v18l-3 6H9l-3-6V20z" fill="url(#gLen)" stroke="#ffd877" stroke-width="1"/><path d="M16 14v30M9 25h14M9 35h14" stroke="#8a4a05" stroke-width=".9" opacity=".7"/><path d="M10 44h12l-2 6H12z" fill="#ffc94d"/><circle cx="16" cy="53" r="1.6" fill="#ffc94d"/></svg>
+        </div>
+
+        <div class="bk pn-hadis">
+          <div class="bk-isi" id="hadis">
+            <div class="kp"><span class="lb">[ HADIS HARI INI ]</span><span class="rf" id="hhref"></span></div>
+            <div class="ht" id="hteks">&gt; memuat hadis...</div>
+            <div class="dr" id="hderajat"></div>
           </div>
         </div>
 
-        <div class="baris">
-          <div class="kartu">
-            <div class="kepala">
-              <svg viewBox="0 0 48 48" class="ik-hist"><circle cx="24" cy="24" r="19"/><ellipse class="mer m1" cx="24" cy="24" rx="8" ry="19"/><ellipse class="mer m2" cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14h32M8 34h32"/></svg>
-              <h3>HISTORY</h3>
-            </div>
-            <p>The month that rewired global history and connected billions of souls.</p>
-          </div>
-          <div class="kartu">
-            <div class="kepala">
-              <svg viewBox="0 0 48 48" class="ik-fw"><circle class="aura" cx="24" cy="24" r="21"/><path d="M24 4L40 10V23C40 33 33 40 24 44C15 40 8 33 8 23V10Z"/><rect class="gembok" x="18" y="22" width="12" height="9" rx="2"/><path class="gembok" d="M20.5 22v-3a3.5 3.5 0 0 1 7 0v3"/><circle class="atk" cx="6" cy="8" r="1.8" style="--sx:-9px;--sy:-7px"/><circle class="atk" cx="43" cy="12" r="1.8" style="--sx:9px;--sy:-8px;animation-delay:.9s"/><circle class="atk" cx="4" cy="30" r="1.8" style="--sx:-9px;--sy:4px;animation-delay:1.7s"/></svg>
-              <h3>FIREWALL: ACTIVE</h3>
-            </div>
-            <p>Demons quarantined. Gates of hell locked. Ultimate spiritual protection.</p>
-          </div>
-          <div class="kartu">
-            <div class="kepala">
-              <svg viewBox="0 0 48 48" class="ik-loc"><circle class="radar r1" cx="24" cy="19" r="5"/><circle class="radar r2" cx="24" cy="19" r="5"/><path d="M24 44C24 44 10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle cx="24" cy="19" r="5"/></svg>
-              <h3>LOCAL DATA</h3>
-            </div>
-            <p>From local traditions to global connections. Are you ready for the upgrade?</p>
-          </div>
-        </div>
-
-        <div class="kotak ayat" id="ayat">
-          <div class="kepala"><span class="label" id="label">[ AYAT HARI INI ]</span><span class="ref" id="ref"></span></div>
-          <div class="arab" id="arab">&gt; memuat ayat...</div>
-          <div class="arti" id="arti"></div>
-        </div>
-
-        <div class="kotak hadis" id="hadis">
-          <div class="kepala"><span class="label">[ HADIS HARI INI ]</span><span class="ref" id="hhref"></span></div>
-          <div class="teks" id="hteks">&gt; memuat hadis...</div>
-          <div class="derajat" id="hderajat"></div>
-        </div>
-
-        <div class="footer">
-          <div class="nama">R. Adi Pranata Setiawan</div>
-          <div class="kampus">TEKNIK INFORMATIKA A²³ | UNIVERSITAS ISLAM MADURA</div>
-          <div class="email">adipranatasetiawan9@gmail.com</div>
-        </div>
+        <div class="bk pn-footer"><div class="bk-isi">
+          <div class="f-nama">R. Adi Pranata Setiawan</div>
+          <div class="f-prodi">TEKNIK INFORMATIKA A²³ &bull; SEMESTER 7</div>
+          <div class="f-kampus">UNIVERSITAS ISLAM MADURA</div>
+          <div class="f-email">&#9993; adipranatasetiawan9@gmail.com</div>
+        </div></div>
       </div>
+
     </section>
 
     <!-- ===== HALAMAN 2 (masih kosong, diisi di tahap berikutnya) ===== -->
@@ -103,7 +172,7 @@
   <button class="petunjuk" id="petunjuk" type="button">geser ›</button>
   <div class="titik"><button type="button" class="on" aria-label="Halaman 1"></button><button type="button" aria-label="Halaman 2"></button></div>
 
-  <script src="boot.js?v=2"></script>
+  <script src="boot.js?v=3"></script>
   <script src="hadis-pendek.js?v=1792900439695"></script>
   <script src="ayat.js?v=10"></script>
   <script src="daftar-masjid.js"></script>
