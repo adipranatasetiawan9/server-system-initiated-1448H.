@@ -1,5 +1,5 @@
 (function () {
-  var JEDA_LANGKAH = 2000;   // jeda minimum tiap langkah (ms), supaya pemeriksaan terbaca. Makin besar makin lambat.
+  var JEDA_LANGKAH = 1400;   // jeda minimum tiap langkah (ms), supaya pemeriksaan terbaca. Makin besar makin lambat.
   var JEDA_AWAL = 1200;      // jeda sebelum pemeriksaan pertama (ms)
   var JEDA_TUTUP = 3500;     // lama layar "STAY CONNECTED" sebelum menutup sendiri (ms)
   var AWAL_HITUNG = "2026-10-19";   // tanggal awal bilah menuju Ramadan
