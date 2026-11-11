@@ -1,7 +1,7 @@
 (function () {
-  var JEDA_LANGKAH = 1400;   // jeda minimum tiap langkah (ms), supaya pemeriksaan terbaca. Makin besar makin lambat.
-  var JEDA_AWAL = 1200;      // jeda sebelum pemeriksaan pertama (ms)
-  var JEDA_TUTUP = 3500;     // lama layar "STAY CONNECTED" sebelum menutup sendiri (ms)
+  var JEDA_LANGKAH = 6400;   // jeda minimum tiap langkah (ms), supaya pemeriksaan terbaca. Makin besar makin lambat.
+  var JEDA_AWAL = 3000;      // jeda sebelum pemeriksaan pertama (ms)
+  var JEDA_TUTUP = 5000;     // lama layar "STAY CONNECTED" sebelum menutup sendiri (ms)
   var AWAL_HITUNG = "2026-10-19";   // tanggal awal bilah menuju Ramadan
 
   var STATUS = window.STATUS = { ayat: null, hadis: null };
@@ -164,14 +164,15 @@
   function tidur(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   /* bilah progres: angka naik pelan menuju target nyata (langkah selesai / total) */
-  var target = 0, tampil = 0;
-  function gambarProgres() {
+  var target = 0, tampil = 0, tPrev = performance.now();
+  function gambarProgres(t) {
     if (tertutup) return;
-    tampil += Math.max(0.12, (target - tampil) * 0.045);
-    if (tampil > target) tampil = target;
-    var p = Math.round(tampil), b = $("boot-bar"), t = $("boot-persen");
-    if (b) b.style.width = tampil + "%";
-    if (t) t.textContent = p + "%";
+    var dt = Math.min(0.1, (t - tPrev) / 1000); tPrev = t;
+    var kec = 100 / total / (JEDA_LANGKAH / 1000) * 1.15;   // persen per detik
+    if (tampil < target) tampil = Math.min(target, tampil + kec * dt);
+    var p = Math.round(tampil), bar = $("boot-bar"), tx = $("boot-persen");
+    if (bar) bar.style.width = tampil + "%";
+    if (tx) tx.textContent = p + "%";
     requestAnimationFrame(gambarProgres);
   }
   requestAnimationFrame(gambarProgres);
@@ -214,6 +215,7 @@
     var baris = $("br-" + kunci), sub = $("boot-sub");
     if (baris) baris.className = "br aktif";
     if (sub) sub.textContent = subteks;
+    target = Math.min(99, (selesaiN + 0.92) / total * 100);
     lencana(kunci, "jalan", "MEMERIKSA");
     var t0 = Date.now();
     return Promise.resolve().then(kerja).then(function (h) {
@@ -267,7 +269,7 @@
     })
     .then(function () {
       return langkah("ayat", "Memuat ayat harian...", function () {
-        return tunggu("ayat", batasMuat).then(function (v) {
+        return tunggu("ayat", Date.now() + 8000).then(function (v) {
           if (v === "ok") return { kelas: "ok", teks: "OK" };
           semuaOk = false;
           return v === "cache" ? { kelas: "tanda", teks: "SIMPANAN" } : { kelas: "gagal", teks: "GAGAL" };
@@ -276,7 +278,7 @@
     })
     .then(function () {
       return langkah("hadis", "Memuat hadis harian...", function () {
-        return tunggu("hadis", batasMuat).then(function (v) {
+        return tunggu("hadis", Date.now() + 8000).then(function (v) {
           if (v === "ok") return { kelas: "ok", teks: "OK" };
           semuaOk = false;
           return v === "cache" ? { kelas: "tanda", teks: "SIMPANAN" } : { kelas: "gagal", teks: "GAGAL" };
@@ -285,6 +287,6 @@
     })
     .then(selesai);
 
-  setTimeout(selesai, 30000);   // pengaman
-  setTimeout(tutup, 36000);     // pengaman: tidak pernah menahan halaman lebih dari 36 detik
+  setTimeout(selesai, 70000);   // pengaman
+  setTimeout(tutup, 80000);     // pengaman: tidak pernah menahan halaman lebih dari 36 detik
 })();
