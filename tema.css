@@ -662,3 +662,55 @@ body.offline .kt svg{opacity:.45}
 .boot-tips.ganti{opacity:0}
 .boot-tombol.siap{animation:denyutTombol 1.4s ease-in-out infinite}
 @keyframes denyutTombol{0%,100%{box-shadow:0 0 12px rgba(63,240,255,.45)}50%{box-shadow:0 0 26px rgba(63,240,255,.95)}}
+
+
+/* ===== v3: ikon 3D, langit berbintang, foto lebih jelas ===== */
+.kanvas.v2 .foto{top:5.2%;height:24.4%;--fy:50%;background:none;-webkit-mask-image:none;mask-image:none}
+.kanvas.v2 .foto::before{
+  content:"";position:absolute;inset:0;background:url("latar.jpg") 50% var(--fy)/100% auto no-repeat;
+  filter:brightness(1.22) saturate(1.12) contrast(1.04);
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 5%,#000 94%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 5%,#000 94%,transparent);
+}
+.kanvas.v2 .scan,.kanvas.v2 .bidik{display:none}
+.kanvas.v2 .lokasi{top:auto;bottom:7%;left:50%;right:auto;transform:translateX(-50%);display:flex;align-items:center;gap:1.4cqw;white-space:nowrap;padding:.6cqw 2cqw;text-align:center;z-index:3;background:rgba(2,10,28,.6)}
+.kanvas.v2 .lokasi b{display:inline;font-size:1.8cqw;color:#fff}
+.kanvas.v2 .lokasi i{font-style:normal;color:var(--emas);font-size:1.8cqw}
+.kanvas.v2 .lokasi span{display:inline;font-size:1.6cqw;color:var(--a)}
+.kanvas.v2 .salam{top:3%}
+
+/* bulan halus dan 20 bintang berkilau */
+.bintang{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.spk{fill:#fff;transform-box:fill-box;transform-origin:center;animation:kilaBintang 2.6s ease-in-out infinite;filter:drop-shadow(0 0 1.2px #fff)}
+.spk.d2{animation-delay:.7s}.spk.d3{animation-delay:1.4s}.spk.d4{animation-delay:2s}
+@keyframes kilaBintang{0%,100%{opacity:.2;transform:scale(.45) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(20deg)}}
+.bulan3{
+  position:absolute;left:35%;top:4%;width:20cqw;height:20cqw;z-index:2;
+  filter:drop-shadow(0 0 5px rgba(255,240,180,.9)) drop-shadow(0 0 16px rgba(255,201,77,.55));
+  animation:denyutBulan 5s ease-in-out infinite;
+}
+
+/* tata letak: foto lebih tinggi */
+.kanvas.v2 .judul{font-size:6.2cqw}
+.pn-judul{top:30.1%;height:13.8%}
+.kisi{top:44.5%;height:15.8%}
+.pn-ayat{top:60.9%;height:14.8%}
+.pn-hadis{top:76.3%;height:8.9%}
+.pn-footer{top:85.8%;height:7.4%}
+.ik{width:11.6cqw;height:11.6cqw}
+
+/* ikon 3D */
+.i3d{filter:drop-shadow(0 0 3px var(--a)) drop-shadow(0 2px 2px rgba(0,0,0,.55))}
+.ik-bumi3 .benua{animation:putarBenua 18s linear infinite}
+@keyframes putarBenua{to{transform:translateX(-80px)}}
+.ik-peris3{animation:cahaya 2.4s ease-in-out infinite}
+.ik-peris3 .aura{fill:var(--a);stroke:none;opacity:.14;transform-box:fill-box;transform-origin:center;animation:aura 2.2s ease-in-out infinite}
+.ik-peris3 .atk{fill:#ff5252;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:serang 2.6s ease-in infinite}
+.ik-pin3 .radar{fill:none;stroke:var(--a);opacity:0;transform-box:fill-box;transform-origin:center;animation:radar 2.4s ease-out infinite}
+.ik-pin3 .r2{animation-delay:1.2s}
+.ik-otak3{animation:cahaya 2.8s ease-in-out infinite}
+.ik-otak3 .nod{fill:#ffc94d;stroke:none;transform-box:fill-box;transform-origin:center;animation:pikir 1.6s ease-in-out infinite}
+.ik-otak3 .n2{animation-delay:.4s}.ik-otak3 .n3{animation-delay:.8s}.ik-otak3 .n4{animation-delay:1.2s}
+.ik-otak3 .sinyal{stroke-dasharray:4 9;animation:alirArc 1.3s linear infinite}
+.lentera.i3d{filter:drop-shadow(0 0 6px #ffb347) drop-shadow(0 0 12px rgba(255,170,40,.5)) drop-shadow(0 2px 2px rgba(0,0,0,.5))}
+@media (prefers-reduced-motion:reduce){.spk,.bulan3,.ik-bumi3 .benua{animation:none!important}}
